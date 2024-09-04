@@ -5,7 +5,10 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "db:reload": "npm run db:drop && npm run db:load",
+    "db:load": "node src/database/load.js",
+    "db:drop": "rm src/database/db.sqlite"
   },
   "type": "module",
   "keywords": [],

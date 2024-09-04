@@ -1,24 +1,24 @@
 import Database from '../database/database.js';
  
-async function create({ name, value }) {
+async function create({name, value, endereco, telefone, foto, mapa, horários}) {
   const db = await Database.connect();
- 
+  console.log(name,value)
   if (name && value) {
     const sql = `
       INSERT INTO
-        investments (name, value)
+        escola (name, value, endereco, telefone, foto, mapa, horários)
       VALUES
-        (?, ?)
+        (?, ?, ?, ?, ?, ?, ?)
     `;
  
-    const { lastID } = await db.run(sql, [name, value]);
- 
+    const { lastID } = await db.run(sql, [name, value, endereco, telefone, foto, mapa, horários]);
+    console.log(lastID)
     return await readById(lastID);
   } else {
     throw new Error('Unable to create investment');
   }
 }
- 
+
 async function read(field, value) {
   const db = await Database.connect();
  
@@ -27,42 +27,42 @@ async function read(field, value) {
       SELECT
           id, name, value
         FROM
-          investments
+          situacao
         WHERE
           ${field} = '?'
       `;
  
-    const investments = await db.all(sql, [value]);
+    const situacao = await db.all(sql, [value]);
  
-    return investments;
+    return situacao;
   }
  
   const sql = `
     SELECT
       id, name, value
     FROM
-      investments
+      situacao
   `;
  
-  const investments = await db.all(sql);
+  const situacao = await db.all(sql);
  
-  return investments;
+  return situacao;
 }
  
 async function readById(id) {
   const db = await Database.connect();
- 
+  console.log(id)
   if (id) {
     const sql = `
-      SELECT
-          id, name, value
+      SELECT *
         FROM
-          investments
+          escola
         WHERE
-          id = ?
+          id_escola = ?
       `;
  
     const investment = await db.get(sql, [id]);
+    console.log(investment)
  
     if (investment) {
       return investment;
@@ -80,7 +80,7 @@ async function update({ id, name, value }) {
   if (name && value && id) {
     const sql = `
       UPDATE
-        investments
+        situacao
       SET
         name = ?, value = ?
       WHERE
@@ -105,7 +105,7 @@ async function remove(id) {
   if (id) {
     const sql = `
       DELETE FROM
-        investments
+        situacao
       WHERE
         id = ?
     `;

@@ -4,27 +4,26 @@ async function up() {
   const db = await Database.connect();
 
   const investmentsSql = `
-  CREATE TABLE situacao (
-    id_situacao INT PRIMARY KEY,
-    nome_situacao VARCHAR(255)
-);
+CREATE TABLE situacao (
+    id INTEGER PRIMARY KEY,
+    name VARCHAR(255),
+    value VARCHAR(255)
 
+);
 CREATE TABLE rede_ensino (
     id_rede_ensino INT PRIMARY KEY,
     nome_rede VARCHAR(255)
 );
 
 CREATE TABLE escola (
-    id_escola INT PRIMARY KEY,
-    nome_escola VARCHAR(255),
-    id_rede_ensino_fk INT,
-    id_cidade_fk INT,
-    id_bairro_fk INT,
-    id_logradouro_fk INT,
-    FOREIGN KEY (id_rede_ensino_fk) REFERENCES rede_ensino(id_rede_ensino),
-    FOREIGN KEY (id_cidade_fk) REFERENCES cidade(id_cidade),
-    FOREIGN KEY (id_bairro_fk) REFERENCES bairro(id_bairro),
-    FOREIGN KEY (id_logradouro_fk) REFERENCES logradouro(id_logradouro)
+    id_escola INTEGER PRIMARY KEY AUTOINCREMENT,
+    name VARCHAR(255),
+    endereco VARCHAR(255),
+    telefone VARCHAR(255),
+    horários VARCHAR(255),
+    mapa VARCHAR(255),
+    foto VARCHAR(255),
+    value VARCHAR(255)
 );
 
 CREATE TABLE turma (
@@ -166,11 +165,10 @@ CREATE TABLE alertas_usuarios (
     data_envio_alerta DATETIME,
     FOREIGN KEY (id_alerta_fk) REFERENCES alertas(id_alerta),
     FOREIGN KEY (id_usuario_fk) REFERENCES usuario(id_usuario)
-);
-
+  );
   `;
 
-  await db.run(investmentsSql);
+  await db.exec(investmentsSql);
 }
 
 export default { up };

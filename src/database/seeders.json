@@ -1,5 +1,8 @@
 
 {
+  "redes": [
+    {"nome_rede":"EMEIEF"}
+  ],
     "escolas": [
     {
       "id":"0",

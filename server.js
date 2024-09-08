@@ -20,10 +20,10 @@ app.use(
 );
 
 //importing routes
-import InvestRoute from './src/routes/investments.route.js'
+import escolasRoute from './src/routes/escolas.route.js'
 
 //using route
-app.use('/dados', InvestRoute)
+app.use('/schools', escolasRoute)
 
 //rendering pages
 app.get("/home", (req, res) => {

@@ -1,142 +1,128 @@
-//import { investments } from './escolas.js'; //
+import API from './services/api.js'
 
-const response = await fetch('http://localhost:3000/dados'); //
-
-const investments = await response.json();//
-
-console.log(investments)
-
-const cards = document.querySelector('.cards');
-
-let x = 0
-
-//function redirecionar(school){
-//  sessionStorage.setItem("escola", school);
-//  location.assign("../html/info-escola.html")
-//}
-function EscolaCard(escola){
+//const API = require('./services/api.js')
+// Função para gerar o card de uma escola
+function EscolaCard(escola) {
   return `
   <div class="col">
-  <a href="http://localhost:3000/escola/?id=${escola.id}">
-    <button id="${x}"
-      class="nav-link" 
-      id="nav-business-tab" data-bs-toggle="tab"  type="button" role="tab" aria-controls="nav-strategy-tab" aria-selected="false"
-    >
-    
-        <h3 class='' style="font-size: 2em;">${escola.nome}</h3>
+    <a href="http://localhost:3000/schools/${escola.id_escola}">
+      <button id="${escola.id_escola}"
+        class="nav-link"
+        data-bs-toggle="tab"
+        type="button"
+        role="tab"
+        aria-controls="nav-school-tab"
+        aria-selected="false"
+      >
+        <h3 style="font-size: 2em;">${escola.name}</h3>
         <div style="line-height: 1.6">
-        <span style="font-size: 0.9em;">${escola.endereco}</span>
-        <span style="font-size: 0.9em;">${escola.telefone}</span>
-        <span style="font-size: 0.9em;">${escola.anos}</span>
-        <span style="font-size: 0.9em;">${escola.horários}</span>
+          <span style="font-size: 0.9em;">Endereço: ${escola.endereco}</span><br>
+          <span style="font-size: 0.9em;">Telefone: ${escola.telefone}</span><br>
+          <span style="font-size: 0.9em;">Rede de Ensino: ${escola.nome_rede}</span><br>
+          <span style="font-size: 0.9em;">Horários: ${escola.horários}</span>
         </div>
       </button>
-      </a>
-    <div>`;
+    </a>
+  </div>`;
 }
 
+// Função para inserir o card da escola no DOM
+function createSchoolCard(escola) {
+  const cards = document.querySelector('.cards');
+  cards.insertAdjacentHTML('beforeend', EscolaCard(escola));
 
-function createInvestmentCard(investment) {
-  cards.insertAdjacentHTML(
-    'beforeend',
-    InvestmentCard(investment)
-  );
-
-  loadHandleConfirmModal(investment.id);
-
-  loadHandleUpdateInvestment(investment.id);
+  // Funções para editar e excluir escolas, se necessário
+  //loadHandleConfirmModal(escola.id);
+  //loadHandleUpdateSchool(escola.id);
 }
 
-
-async function loadInvestmentCards() {
-  const escolas = await API.read('/investments');
-  print(escolas)
-  for (const escola of escolas) {
-    createInvestmentCard(escola);
+// Função para carregar as escolas e exibir no frontend
+async function loadSchoolCards() {
+  try {
+    const escolas = await API.read('/schools'); // Faz a requisição para obter todas as escolas
+  console.log(escolas)
+    for (const escola of escolas) {
+      createSchoolCard(escola); // Cria o card de cada escola
+    }
+  } catch (error) {
+    console.error('Erro ao carregar escolas:', error);
   }
 }
 
-
-function loadHandleFormSubmit(type, id) {
+// Função para manipular o formulário de criação/edição de escola
+/*function loadHandleFormSubmit(type, id) {
   const form = document.querySelector('form');
 
   form.onsubmit = async (event) => {
     event.preventDefault();
 
-    const investment = Object.fromEntries(new FormData(form));
-
-    investment.value = Number(investment.value) * 100;
+    const escola = Object.fromEntries(new FormData(form));
 
     if (type === 'create') {
-      const createdInvestment = await API.create('/investments', investment);
-
-      createInvestmentCard(createdInvestment);
+      const createdSchool = await API.create('/schools', escola);
+      createSchoolCard(createdSchool); // Cria o card com a nova escola
     } else if (type === 'update') {
-      const updatedInvestment = await API.update(
-        `/investments/${id}`,
-        investment
-      );
-
-      updateInvestmentCard(updatedInvestment);
+      const updatedSchool = await API.update(`/schools/${id}`, escola);
+      updateSchoolCard(updatedSchool); // Atualiza o card da escola existente
     }
 
     form.reset();
-
     document.querySelector('#offcanvas-close').click();
   };
 }
-function loadHandleCreateInvestment() {
-  const button = document.querySelector('.btn.create-investment');
+
+// Função para manipular a criação de novas escolas
+function loadHandleCreateSchool() {
+  const button = document.querySelector('.btn.create-school');
 
   button.onclick = () => {
     bsOffcanvas.show();
-
     loadHandleFormSubmit('create');
   };
 }
 
-function loadHandleUpdateInvestment(id) {
-  const iconPencil = document.querySelector(`#investment-${id} .icon-pencil`);
+// Função para editar escola existente
+function loadHandleUpdateSchool(id) {
+  const iconPencil = document.querySelector(`#school-${id} .icon-pencil`);
 
   iconPencil.onclick = async () => {
-    const investment = await API.read(`/investments/${id}`);
+    const escola = await API.read(`/schools/${id}`);
+    const { nome, endereco, telefone, anos, horarios } = escola;
 
-    const { name, value } = investment;
-
-    document.querySelector('form #name').value = name;
-
-    document.querySelector('form #value').value = value / 100;
+    // Preenche o formulário com os dados da escola existente
+    document.querySelector('form #nome').value = nome;
+    document.querySelector('form #endereco').value = endereco;
+    document.querySelector('form #telefone').value = telefone;
+    document.querySelector('form #anos').value = anos;
+    document.querySelector('form #horarios').value = horarios;
 
     bsOffcanvas.show();
-
-    loadHandleFormSubmit('update', id);
+    loadHandleFormSubmit('update', id); // Prepara o formulário para atualização
   };
 }
 
+// Função para confirmar remoção de uma escola
 function loadHandleConfirmModal(id) {
-  const iconTrash = document.querySelector(`#investment-${id} .icon-trash`);
+  const iconTrash = document.querySelector(`#school-${id} .icon-trash`);
 
   iconTrash.onclick = () => {
     removedHostId = id;
-
-    confirmModal.show();
+    confirmModal.show(); // Exibe modal de confirmação
   };
 }
 
-function loadHandleRemoveInvestment() {
+// Função para remover escola
+function loadHandleRemoveSchool() {
   const confirmBtn = document.querySelector('.modal .btn-primary');
 
-  confirmBtn.onclick = () => {
-    API.remove(`/investments/${removedHostId}`);
-
-    document.querySelector(`#investment-${removedHostId}`).remove();
-
-    confirmModal.hide();
+  confirmBtn.onclick = async () => {
+    await API.remove(`/schools/${removedHostId}`); // Remove a escola
+    document.querySelector(`#school-${removedHostId}`).remove(); // Remove o card da escola do DOM
+    confirmModal.hide(); // Fecha o modal
   };
-}
+}*/
 
-loadInvestmentCards();
-
-loadHandleCreateInvestment();
-
-loadHandleRemoveInvestment();
+// Carrega as escolas ao inicializar
+loadSchoolCards();
+//loadHandleCreateSchool();
+//loadHandleRemoveSchool();

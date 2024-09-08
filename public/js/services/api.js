@@ -1,56 +1,91 @@
-const domain = 'http://localhost:3000';
+// Arquivo api.js
+const API = {
+  baseUrl: 'http://localhost:3000',
 
-async function create(resource, data) {
-  const url = `${domain}${resource}`;
+  // Método para fazer uma requisição GET e obter dados (escolas)
+  async read(endpoint) {
+    try {
+      const response = await fetch(`${this.baseUrl}${endpoint}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-  const config = {
-    method: 'POST',
-    mode: 'cors',
-    body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-  };
+      if (!response.ok) {
+        throw new Error(`Erro ao carregar dados: ${response.statusText}`);
+      }
 
-  const res = await fetch(url, config);
+      //console.log(await response.json())
+      return await response.json();
+    } catch (error) {
+      console.error('Erro na requisição GET:', error);
+      throw error;
+    }
+  },
 
-  return await res.json();
-}
-async function read(resource) {
-    const url = `${domain}${resource}`;
-  
-    const res = await fetch(url);
-  
-    return await res.json();
-  }
-  
-  async function update(resource, data) {
-    const url = `${domain}${resource}`;
-  
-    const config = {
-      method: 'PUT',
-      mode: 'cors',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-    };
-  
-    const res = await fetch(url, config);
-  
-    return await res.json();
-  }
-  
-  async function remove(resource) {
-    const url = `${domain}${resource}`;
-  
-    const config = {
-      method: 'DELETE',
-      mode: 'cors',
-    };
-  
-    await fetch(url, config);
-  }
-  
-  export default { create, read, update, remove };
-  
+  // Método para fazer uma requisição POST para criar novos dados (escolas)
+  async create(endpoint, data) {
+    try {
+      const response = await fetch(`${this.baseUrl}${endpoint}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erro ao criar dados: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Erro na requisição POST:', error);
+      throw error;
+    }
+  },
+
+  // Método para fazer uma requisição PUT para atualizar dados existentes
+  async update(endpoint, data) {
+    try {
+      const response = await fetch(`${this.baseUrl}${endpoint}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erro ao atualizar dados: ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Erro na requisição PUT:', error);
+      throw error;
+    }
+  },
+
+  // Método para fazer uma requisição DELETE para remover dados
+  async remove(endpoint) {
+    try {
+      const response = await fetch(`${this.baseUrl}${endpoint}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erro ao remover dados: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error('Erro na requisição DELETE:', error);
+      throw error;
+    }
+  },
+};
+
+export default API;

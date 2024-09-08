@@ -1,17 +1,17 @@
 import Database from '../database/database.js';
  
-async function create({name, value, endereco, telefone, foto, mapa, horários}) {
+async function create({name, value, endereco, telefone, foto, mapa, horários, id_rede}) {
   const db = await Database.connect();
   console.log(name,value)
   if (name && value) {
     const sql = `
       INSERT INTO
-        escola (name, value, endereco, telefone, foto, mapa, horários)
+        escola (name, value, endereco, telefone, foto, mapa, horários, id_rede)
       VALUES
-        (?, ?, ?, ?, ?, ?, ?)
+        (?, ?, ?, ?, ?, ?, ?, ?)
     `;
  
-    const { lastID } = await db.run(sql, [name, value, endereco, telefone, foto, mapa, horários]);
+    const { lastID } = await db.run(sql, [name, value, endereco, telefone, foto, mapa, horários, id_rede]);
     console.log(lastID)
     return await readById(lastID);
   } else {
@@ -19,29 +19,15 @@ async function create({name, value, endereco, telefone, foto, mapa, horários}) 
   }
 }
 
-async function read(field, value) {
+async function read() {
   const db = await Database.connect();
- 
-  if (field && value) {
-    const sql = `
-      SELECT
-          id, name, value
-        FROM
-          situacao
-        WHERE
-          ${field} = '?'
-      `;
- 
-    const situacao = await db.all(sql, [value]);
- 
-    return situacao;
-  }
  
   const sql = `
     SELECT
-      id, name, value
-    FROM
-      situacao
+      escola.*,
+      rede_ensino.*
+    FROM escola
+    JOIN rede_ensino ON escola.id_rede = rede_ensino.id_rede_ensino;
   `;
  
   const situacao = await db.all(sql);

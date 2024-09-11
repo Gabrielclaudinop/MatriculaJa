@@ -52,13 +52,17 @@ async function Filter(filter) {
     if(!filter) return data
     let filteredData
     //console.log(data)
+    if(filter?.name && filter?.turn){
+      filteredData = data.filter((el) => el.serie?.includes(filter.name) && el.turno?.includes(filter.turn))
+    }
+    else{
     if(filter?.name){
       filteredData = data.filter((el) => el.serie?.includes(filter.name));
     }
-    /*if(filter?.turn){
+    if(filter?.turn){
       filteredData = data.filter((el) => el.turno?.includes(filter.turn))
-    }*/
-    console.log(filter)
+    }
+    console.log(filter)}
     return filteredData
   } catch (err) {
     console.log('Erro no filtro:', err);
@@ -74,13 +78,13 @@ function loadHandleFilterSchool() {
     const filterTurn = document.querySelector('#filter-turn-schools').value; // Exemplo: obtém o valor do input do filtro
     const filters = {};
 
-    if (filterName) {
+    if (filterName || filterTurn) {
       filters.name = filterName; // Adiciona o filtro de nome
       filters.turn = filterTurn;
     }
 
     const filteredSchools = await Filter(filters); // Passa os filtros para a função Filter
-
+    console.log(filteredSchools)
     document.querySelector('.cards').innerHTML = ''; // Limpa as escolas antes de carregar as filtradas
     for (const escola of filteredSchools) {
       createSchoolCard(escola); // Recarrega os cards com base no filtro

@@ -109,7 +109,7 @@ async function remove(id) {
     throw new Error('Investment not found');
   }
 }
-async function filter() {
+/*async function filter() {
   const db = await Database.connect();
   console.log(id)
   if (serie,turno) {
@@ -140,6 +140,6 @@ async function filter() {
   } else {
     throw new Error('Unable to find investment');
   }
-}
-export default { create, read, readById, update, remove, filter};
+}*/
+export default { create, read, readById, update, remove};
  

@@ -1,6 +1,5 @@
 import API from './services/api.js'
 
-//const API = require('./services/api.js')
 // Função para gerar o card de uma escola
 function EscolaCard(escola) {
   return `
@@ -30,17 +29,14 @@ function EscolaCard(escola) {
 function createSchoolCard(escola) {
   const cards = document.querySelector('.cards');
   cards.insertAdjacentHTML('beforeend', EscolaCard(escola));
-
-  // Funções para editar e excluir escolas, se necessário
-  //loadHandleConfirmModal(escola.id);
-  //loadHandleUpdateSchool(escola.id);
 }
 
 // Função para carregar as escolas e exibir no frontend
 async function loadSchoolCards() {
   try {
     const escolas = await API.read('/schools'); // Faz a requisição para obter todas as escolas
-  console.log(escolas)
+    console.log(escolas);
+    document.querySelector('.cards').innerHTML = ''; // Limpa as escolas antes de carregar novas
     for (const escola of escolas) {
       createSchoolCard(escola); // Cria o card de cada escola
     }
@@ -48,17 +44,47 @@ async function loadSchoolCards() {
     console.error('Erro ao carregar escolas:', error);
   }
 }
-async function Filter(){
-  try{
-    const escolas = await API.read("/schools/filter")
+
+// Função para aplicar o filtro
+async function Filter(filter) {
+  try {
+    const data = await API.read(`/schools/`); // Faz a requisição passando os filtros na query string
+    if(!filter) return data
+    let filteredData
+    //console.log(data)
+    if(filter?.name){
+      filteredData = data.filter((el) => el.serie?.includes(filter.name));
+    }
+    /*if(filter?.turn){
+      filteredData = data.filter((el) => el.turno?.includes(filter.turn))
+    }*/
+    console.log(filter)
+    return filteredData
+  } catch (err) {
+    console.log('Erro no filtro:', err);
   }
 }
+
+// Função para manipular o filtro de escolas
 function loadHandleFilterSchool() {
   const button = document.querySelector('.btn.filter-schools');
 
-  button.onclick = () => {
+  button.onclick = async () => {
+    const filterName = document.querySelector('#filter-name-schools').value; // Exemplo: obtém o valor do input do filtro
+    const filterTurn = document.querySelector('#filter-turn-schools').value; // Exemplo: obtém o valor do input do filtro
+    const filters = {};
 
-    Filter('create');
+    if (filterName) {
+      filters.name = filterName; // Adiciona o filtro de nome
+      filters.turn = filterTurn;
+    }
+
+    const filteredSchools = await Filter(filters); // Passa os filtros para a função Filter
+
+    document.querySelector('.cards').innerHTML = ''; // Limpa as escolas antes de carregar as filtradas
+    for (const escola of filteredSchools) {
+      createSchoolCard(escola); // Recarrega os cards com base no filtro
+    }
   };
 }
 

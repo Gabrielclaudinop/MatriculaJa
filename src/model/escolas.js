@@ -1,17 +1,19 @@
+//Esse arquivo é importado em escolas.route.js
+
 import Database from '../database/database.js';
- 
-async function create({name, value, endereco, telefone, foto, mapa, horários, id_rede}) {
+
+async function create({name, value, endereco, telefone, foto, mapa, horários, id_rede,serie,turno}) {
   const db = await Database.connect();
   console.log(name,value)
   if (name && value) {
     const sql = `
       INSERT INTO
-        escola (name, value, endereco, telefone, foto, mapa, horários, id_rede)
+        escola (name, value, endereco, telefone, foto, mapa, horários, id_rede, serie, turno)
       VALUES
-        (?, ?, ?, ?, ?, ?, ?, ?)
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
  
-    const { lastID } = await db.run(sql, [name, value, endereco, telefone, foto, mapa, horários, id_rede]);
+    const { lastID } = await db.run(sql, [name, value, endereco, telefone, foto, mapa, horários, id_rede,serie,turno]);
     console.log(lastID)
     return await readById(lastID);
   } else {
@@ -107,6 +109,37 @@ async function remove(id) {
     throw new Error('Investment not found');
   }
 }
+async function filter() {
+  const db = await Database.connect();
+  console.log(id)
+  if (serie,turno) {
+    const sql = `
+      SELECT *
+        FROM
+          escola
+        WHERE
+          serie
+        LIKE
+          %?%
+        AND
+        WHERE
+          turno
+        LIKE
+          %?%
+        
+      `;
  
-export default { create, read, readById, update, remove };
+    const investment = await db.get(sql, [serie,turno]);
+    console.log(investment)
+ 
+    if (investment) {
+      return investment;
+    } else {
+      throw new Error('Investment not found');
+    }
+  } else {
+    throw new Error('Unable to find investment');
+  }
+}
+export default { create, read, readById, update, remove, filter};
  

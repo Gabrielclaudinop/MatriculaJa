@@ -18,6 +18,8 @@ async function up() {
         mapa VARCHAR(255),
         foto VARCHAR(255),
         value VARCHAR(255),
+        serie VARCHAR(255),
+        turno VARCHAR(255),
         FOREIGN KEY (id_rede) REFERENCES rede_ensino (id_rede_ensino)
     );`,
   ];

@@ -5,7 +5,7 @@ import API from './services/api.js'
 function EscolaCard(escola) {
   return `
   <div class="col">
-    <a href="http://localhost:3000/schools/${escola.id_escola}">
+    <a href="http://localhost:3000/escola?id=${escola.id_escola}">
       <button id="${escola.id_escola}"
         class="nav-link"
         data-bs-toggle="tab"
@@ -47,6 +47,19 @@ async function loadSchoolCards() {
   } catch (error) {
     console.error('Erro ao carregar escolas:', error);
   }
+}
+async function Filter(){
+  try{
+    const escolas = await API.read("/schools/filter")
+  }
+}
+function loadHandleFilterSchool() {
+  const button = document.querySelector('.btn.filter-schools');
+
+  button.onclick = () => {
+
+    Filter('create');
+  };
 }
 
 // Função para manipular o formulário de criação/edição de escola
@@ -124,5 +137,5 @@ function loadHandleRemoveSchool() {
 
 // Carrega as escolas ao inicializar
 loadSchoolCards();
-//loadHandleCreateSchool();
+loadHandleFilterSchool();
 //loadHandleRemoveSchool();

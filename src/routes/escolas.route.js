@@ -40,10 +40,25 @@ router.get('/:id', async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
-
+router.get('/filter', async (req,res)=>{
+  try {
+    const serie = req.params.serie;
+    const turno = req.params.turno
+    const schools = await Escolas.filter(serie,turno)
+    if (schools){
+      return res.json(escola);
+    } else {
+      throw new HTTPError('School not found', 404);
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+  }
+)
 // Rota PUT para atualizar uma escola pelo ID
 router.put('/:id', async (req, res) => {
   try {
+    console.log("funciona")
     const id = req.params.id;
     const index = escolas.findIndex(e => e.id === id);
   
@@ -85,5 +100,5 @@ router.use((err, req, res, next) => {
     return res.status(500).json({ message: 'Something broke!' });
   }
 });
-
+router
 export default router;

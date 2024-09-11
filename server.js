@@ -30,10 +30,7 @@ app.get("/home", (req, res) => {
   res.sendFile('index.html', {root:'public/html'})
 })
 
-app.get("/escola", (req, res) => {
-  const id = req.params.id
-  res.sendFile('info-escola.html', {root:'public/html'})
-})
+
 
 app.get("/login", (req, res) => {
   res.sendFile('login.html', {root:'public/html'})
@@ -45,6 +42,11 @@ app.get("/escolas", (req, res) => {
 
 app.get("/cadastro", (req, res) => {
   res.sendFile('cadastro.html', {root:'public/html'})
+})
+
+app.get("/escola", (req, res) => {
+  const id = req.params.id
+  res.sendFile('info-escola.html', {root:'public/html'})
 })
 
 //app.use(( error, req, res, next ) => {

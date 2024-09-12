@@ -14,7 +14,9 @@
       "mapa": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.844446635128!2d-34.8785129908833!3d-7.143979392830445!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7ace937c59420b7%3A0xa0d07c8f6fd69059!2sEMEIEF%20LEONIDAS%20SANTIAGO!5e0!3m2!1spt-BR!2sbr!4v1711325225276!5m2!1spt-BR!2sbr",
       "foto": "EMEIEF LEÔNIDAS SANTIAGO.png",
       "turno": "Manha_Tarde",
-      "serie": "Fundamental1_Fundamental2"
+      "serie": "Fundamental1_Fundamental2",
+      "vagas_ofertadas":200,
+      "vagas_disponiveis":130
     },
     {
       "id":"1",
@@ -26,7 +28,9 @@
       "mapa": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.7656064035004!2d-34.88073209088304!3d-7.153077492821511!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7ace83146619997%3A0xe1d7d88d3c00c693!2sR.%20Dom%20Bosco%2C%20557%20-%20Cristo%2C%20Jo%C3%A3o%20Pessoa%20-%20PB%2C%2058070-470!5e0!3m2!1spt-BR!2sbr!4v1711325415948!5m2!1spt-BR!2sbr",
       "foto": "EMEIEF AMERICO FALCÃO.png",
       "turno": "Tarde",
-      "serie": "Fundamental1_Fundamental2"
+      "serie": "Fundamental1_Fundamental2",
+      "vagas_ofertadas":200,
+      "vagas_disponiveis":130
     },
     {
       "id":"2",
@@ -38,7 +42,9 @@
       "mapa": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.7608510146233!2d-34.88036949088312!3d-7.153625892820968!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7ace8315e739967%3A0x2cb64cd5e36f2e27!2sR.%20Dom%20Bosco%2C%20755%20-%20Cristo%20Redentor%2C%20Jo%C3%A3o%20Pessoa%20-%20PB%2C%2058070-470!5e0!3m2!1spt-BR!2sbr!4v1711325502713!5m2!1spt-BR!2sbr",
       "foto": "EMEF PADRE PEDRO SERRÃO.png",
       "turno": "Manha",
-      "serie": "Fundamental1_Fundamental2"
+      "serie": "Fundamental1_Fundamental2",
+      "vagas_ofertadas":200,
+      "vagas_disponiveis":130
     },
     {
       "id":"3",
@@ -50,7 +56,9 @@
       "mapa": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.7306513845547!2d-34.87666909088298!3d-7.157107592817542!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7ace9327135b963%3A0x3abc0ebe3c594f55!2sEEEF%20PROF%20ORLANDO%20CAVALCANTI%20GOMES!5e0!3m2!1spt-BR!2sbr!4v1711325560504!5m2!1spt-BR!2sbr",
       "foto": "EEEF PROF ORLANDO CAVALCANTI GOMES.png",
       "turno": "Manha_Tarde",
-      "serie": "Médio"
+      "serie": "Médio",
+      "vagas_ofertadas":200,
+      "vagas_disponiveis":130
     },
     {
       "id":"4",
@@ -62,7 +70,9 @@
       "mapa": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63339.69067839829!2d-34.91538558122099!3d-7.157105746863846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7ace91d3b8d402f%3A0x7ac8a79646078204!2sEMEF%20FENELON%20CAMARA!5e0!3m2!1spt-BR!2sbr!4v1711325694911!5m2!1spt-BR!2sbr",
       "foto": "EMEF FENELON CAMARA.png",
       "turno": "Tarde",
-      "serie": "Fundamental2"
+      "serie": "Fundamental2",
+      "vagas_ofertadas":200,
+      "vagas_disponiveis":130
     },
     {
       "id":"5",
@@ -74,7 +84,9 @@
       "mapa": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.9172794194133!2d-34.876050590883295!3d-7.135564292838718!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7ace810852ae4f1%3A0xaf5445223401f2bb!2sIFPB%20-%20Campus%20Jo%C3%A3o%20Pessoa!5e0!3m2!1spt-BR!2sbr!4v1711325830441!5m2!1spt-BR!2sbr",
       "foto": "IFPB - CAMPUS JOÃO PESSOA.png",
       "turno": "Tarde",
-      "serie": "Médio"
+      "serie": "Médio",
+      "vagas_ofertadas":200,
+      "vagas_disponiveis":130
     }
   ]
 }

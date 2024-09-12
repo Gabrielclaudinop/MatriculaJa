@@ -2,18 +2,18 @@
 
 import Database from '../database/database.js';
 
-async function create({name, value, endereco, telefone, foto, mapa, horários, id_rede,serie,turno}) {
+async function create({name, value, endereco, telefone, foto, mapa, horários, id_rede,serie,turno, vagas_ofertadas, vagas_disponiveis}) {
   const db = await Database.connect();
-  console.log(name,value)
+  console.log(name,value,"ai")
   if (name && value) {
     const sql = `
       INSERT INTO
-        escola (name, value, endereco, telefone, foto, mapa, horários, id_rede, serie, turno)
+        escola (name, value, endereco, telefone, foto, mapa, horários, id_rede, serie, turno, vagas_ofertadas, vagas_disponiveis)
       VALUES
-        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
  
-    const { lastID } = await db.run(sql, [name, value, endereco, telefone, foto, mapa, horários, id_rede,serie,turno]);
+    const { lastID } = await db.run(sql, [name, value, endereco, telefone, foto, mapa, horários, id_rede, serie, turno, vagas_ofertadas, vagas_disponiveis]);
     console.log(lastID)
     return await readById(lastID);
   } else {

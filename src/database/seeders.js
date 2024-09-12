@@ -5,6 +5,7 @@ import database from "./database.js";
 
 async function up() {
   const file = resolve("src", "database", "seeders.json");
+  console.log(file)
   const db = await database.connect();
   const seed = JSON.parse(readFileSync(file));
 

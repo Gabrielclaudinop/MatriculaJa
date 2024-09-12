@@ -19,6 +19,8 @@ function EscolaCard(escola) {
           <span style="font-size: 0.9em;">Telefone: ${escola.telefone}</span><br>
           <span style="font-size: 0.9em;">Rede de Ensino: ${escola.nome_rede}</span><br>
           <span style="font-size: 0.9em;">Horários: ${escola.horários}</span>
+          <span style="font-size: 0.9em;">Vagas ofertadas: ${escola.vagas_ofertadas}</span>
+          <span style="font-size: 0.9em;">Vagas disponíveis: ${escola.vagas_disponiveis}</span>
         </div>
       </button>
     </a>

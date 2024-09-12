@@ -57,10 +57,11 @@ app.get("/escola", (req, res) => {
 //});
 
 //route not find
-app.get("/*", (req, res, next) => {
-    console.log("Página não encontrada 404")
-    res.sendFile('404.html', {root:'public/html'})
+app.use((req,res,next) => {
+  console.log("Página não encontrada")
+  res.status(404).sendFile('404.html', {root:'public/html'})
 })
+
 
 app.listen(PORT, ()=> {
   console.log(`server running on port ${PORT}`)

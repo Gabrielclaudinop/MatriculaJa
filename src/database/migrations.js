@@ -20,6 +20,8 @@ async function up() {
         value VARCHAR(255),
         serie VARCHAR(255),
         turno VARCHAR(255),
+        vagas_ofertadas INTEGER,
+        vagas_disponiveis INTEGER,
         FOREIGN KEY (id_rede) REFERENCES rede_ensino (id_rede_ensino)
     );`,
   ];

@@ -1,0 +1,27 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+
+model escolas {
+  id String @id @default(uuid())
+  name String
+  endereco String
+  telefone String
+  value String
+  horarios String
+  mapa String
+  foto String
+  turno String
+  serie String
+  vagas_ofertadas Int
+  vagas_disponiveis Int
+}

@@ -2,7 +2,7 @@
 
 import Database from '../database/database.js';
 
-async function create({name, value, endereco, telefone, foto, mapa, horários, id_rede,serie,turno, vagas_ofertadas, vagas_disponiveis}) {
+async function create({name, value, endereco, telefone, foto, mapa, horarios, id_rede,serie,turno, vagas_ofertadas, vagas_disponiveis}) {
   const db = await Database.connect();
   console.log(name,value,"ai")
   if (name && value) {
@@ -13,7 +13,7 @@ async function create({name, value, endereco, telefone, foto, mapa, horários, i
         (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
  
-    const { lastID } = await db.run(sql, [name, value, endereco, telefone, foto, mapa, horários, id_rede, serie, turno, vagas_ofertadas, vagas_disponiveis]);
+    const { lastID } = await db.run(sql, [name, value, endereco, telefone, foto, mapa, horarios, id_rede, serie, turno, vagas_ofertadas, vagas_disponiveis]);
     console.log(lastID)
     return await readById(lastID);
   } else {
@@ -87,7 +87,7 @@ async function update({ id, name, value }) {
   }
 }
  
-async function remove(id) {
+/*async function remove(id) {
   const db = await Database.connect();
  
   if (id) {
@@ -109,7 +109,7 @@ async function remove(id) {
     throw new Error('Investment not found');
   }
 }
-/*async function filter() {
+async function filter() {
   const db = await Database.connect();
   console.log(id)
   if (serie,turno) {
@@ -141,5 +141,5 @@ async function remove(id) {
     throw new Error('Unable to find investment');
   }
 }*/
-export default { create, read, readById, update, remove};
+export default { create, read, readById};
  

@@ -19,7 +19,6 @@ const view = `
                   <div style="line-height: 1.6">
                   <span style="font-size: 0.9em;">${escola.endereco}</span>
                   <span style="font-size: 0.9em;">${escola.telefone}</span>
-                  <span style="font-size: 0.9em;">${escola.anos}</span>
                   <span style="font-size: 0.9em;">${escola.horários}</span>
                   </div></button>
     <button class="nav-link" id="nav-business-tab" data-bs-toggle="tab" data-bs-target="#mapa" escola_num="${escola.id_escola}" type="button" role="tab" aria-controls="nav-strategy-tab" aria-selected="false">

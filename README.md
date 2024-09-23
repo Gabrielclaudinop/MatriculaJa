@@ -171,3 +171,59 @@ CREATE TABLE alertas_usuarios (
     FOREIGN KEY (id_usuario_fk) REFERENCES usuario(id_usuario)
   );
   `; 
+
+## FUNÇÃO - UPDATE E REMOVE
+async function remove(id) {
+  const db = await Database.connect();
+ 
+  if (id) {
+    const sql = `
+      DELETE FROM
+        situacao
+      WHERE
+        id = ?
+    `;
+ 
+    const { changes } = await db.run(sql, [id]);
+ 
+    if (changes === 1) {
+      return true;
+    } else {
+      throw new Error('Investment not found');
+    }
+  } else {
+    throw new Error('Investment not found');
+  }
+}
+async function filter() {
+  const db = await Database.connect();
+  console.log(id)
+  if (serie,turno) {
+    const sql = `
+      SELECT *
+        FROM
+          escola
+        WHERE
+          serie
+        LIKE
+          %?%
+        AND
+        WHERE
+          turno
+        LIKE
+          %?%
+        
+      `;
+ 
+    const investment = await db.get(sql, [serie,turno]);
+    console.log(investment)
+ 
+    if (investment) {
+      return investment;
+    } else {
+      throw new Error('Investment not found');
+    }
+  } else {
+    throw new Error('Unable to find investment');
+  }
+}

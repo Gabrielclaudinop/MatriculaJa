@@ -11,17 +11,26 @@ datasource db {
 }
 
 
-model escolas {
-  id String @id @default(uuid())
-  name String
-  endereco String
-  telefone String
-  value String
-  horarios String
-  mapa String
-  foto String
-  turno String
-  serie String
-  vagas_ofertadas Int
-  vagas_disponiveis Int
+  model RedeEnsino {
+  idRedeEnsino Int     @id @default(autoincrement())
+  nomeRede     String
+  escolas      Escola[]
+}
+
+model Escola {
+  idEscola          Int      @id @default(autoincrement())
+  idRede            Int?
+  name              String?
+  endereco          String?
+  telefone          String?
+  horarios          String?
+  mapa              String?
+  foto              String?
+  value             String?
+  serie             String?
+  turno             String?
+  vagasOfertadas    Int?
+  vagasDisponiveis  Int?
+
+  rede              RedeEnsino? @relation(fields: [idRede], references: [idRedeEnsino])
 }

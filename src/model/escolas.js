@@ -1,11 +1,13 @@
 //Esse arquivo é importado em escolas.route.js
-
-import Database from '../database/database.js';
+import prisma from '../database/database.js';
 
 async function create({name, value, endereco, telefone, foto, mapa, horarios, id_rede,serie,turno, vagas_ofertadas, vagas_disponiveis}) {
   const db = await Database.connect();
   console.log(name,value,"ai")
   if (name && value) {
+    prisma.escolas.create({data: {
+      name: name
+    }})
     const sql = `
       INSERT INTO
         escola (name, value, endereco, telefone, foto, mapa, horários, id_rede, serie, turno, vagas_ofertadas, vagas_disponiveis)

@@ -11,7 +11,7 @@ datasource db {
 }
 
 
-  model RedeEnsino {
+model RedeEnsino {
   idRedeEnsino Int     @id @default(autoincrement())
   nomeRede     String
   escolas      Escola[]
@@ -33,4 +33,12 @@ model Escola {
   vagasDisponiveis  Int?
 
   rede              RedeEnsino? @relation(fields: [idRede], references: [idRedeEnsino])
+}
+
+model Contato {
+  id        Int      @id @default(autoincrement())
+  email     String
+  tipo      String
+  message   String
+  createdAt DateTime @default(now())
 }

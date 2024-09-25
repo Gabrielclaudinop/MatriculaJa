@@ -9,7 +9,6 @@
     "db:reload": "npm run db:drop && npm run db:load",
     "db:load": "node src/database/load.js",
     "db:drop": "del src\\database\\db.sqlite"
-    
   },
   "type": "module",
   "keywords": [],
@@ -24,7 +23,7 @@
     "jquery": "^3.7.1",
     "jsdom": "^24.0.0",
     "morgan": "^1.10.0",
-    "prisma": "^5.19.1",
+    "prisma": "^5.20.0",
     "sqlite-async": "^1.2.0",
     "uuid": "^10.0.0"
   },

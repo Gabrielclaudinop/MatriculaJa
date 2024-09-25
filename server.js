@@ -1,7 +1,7 @@
 /* CONST, definição de variáveis constantes */
 import express from 'express'
 import morgan from 'morgan'
-import cors from 'cors'; //
+import cors from 'cors'; 
 
 const app = express();
 const PORT = 3000
@@ -25,12 +25,31 @@ import escolasRoute from './src/routes/escolas.route.js'
 //using route
 app.use('/schools', escolasRoute)
 
+// Rota de contato para receber os dados do formulário
+app.post('/contato', async (req, res) => {
+  const { email, tipo, message } = req.body;
+
+  try {
+    // Salvando no banco de dados com Prisma
+    const contato = await prisma.contato.create({
+      data: {
+        email,
+        tipo,
+        message,
+      },
+    });
+
+    res.status(200).json({ message: 'Mensagem enviada e salva com sucesso!' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Ocorreu um erro ao enviar a mensagem.' });
+  }
+});
+
 //rendering pages
 app.get("/home", (req, res) => {
   res.sendFile('index.html', {root:'public/html'})
 })
-
-
 
 app.get("/login", (req, res) => {
   res.sendFile('login.html', {root:'public/html'})

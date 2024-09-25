@@ -248,19 +248,23 @@ Free Bootstrap 5 HTML Template
             <div class="row justify-content-center">
 
               <div class="col-lg-6 col-12">
-                <form class="custom-form contact-form" action="" method="post" role="form">
+                <form class="custom-form contact-form" action="/contato" method="post" role="form">
                   <small class="small-title">CONTATO <strong class="text-white"></strong></small>
 
                   <h2 class="mb-5">Tem alguma duvida? Mande uma mensagem para nos por email e responderemos assim que possivel.</h2>
 
                   <div class="row">
                     <div class="col-lg-6 col-md-6 col-12">
-                      <input type="text" name="name" id="name" class="form-control" placeholder="E-mail" required="">
+                      <input type="email" name="email" id="email" class="form-control" placeholder="E-mail" required="">
                     </div>
 
                     <div class="col-lg-6 col-md-6 col-12">
-                      <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control"
-                        placeholder="Tipo" required="">
+                     <select name="tipo" id="tipo" class="form-control" required>
+                      <option value="">Selecione o tipo</option>
+                      <option value="denuncia">Denúncia</option>
+                      <option value="duvida">Dúvida</option>
+                      <option value="erro">Erro</option>
+                     </select>
                     </div>
 
                     <div class="col-12">

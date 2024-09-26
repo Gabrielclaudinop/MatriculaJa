@@ -9,7 +9,7 @@ async function main() {
 
   const seed = JSON.parse(readFileSync(file));
 
-  await prisma.escolas.createMany({
+  await prisma.escola.createMany({
     data: seed.escolas,
   });
 }

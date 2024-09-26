@@ -2,7 +2,6 @@
   "redes": [{ "nome_rede": "EMEIEF" }],
   "escolas": [
     {
-      "id": "0",
       "name": "EMEIEF LEÔNIDAS SANTIAGO",
       "endereco": "Endereço: R. Cônego Vicente Pimentel, 350 - Varjão, João Pessoa - PB, 58070-030",
       "telefone": "Tel: (83)4002-8922",
@@ -12,11 +11,10 @@
       "foto": "EMEIEF LEÔNIDAS SANTIAGO.png",
       "turno": "Manha_Tarde",
       "serie": "Fundamental1_Fundamental2",
-      "vagas_ofertadas": 200,
-      "vagas_disponiveis": 130
+      "vagasOfertadas": 200,
+      "vagasDisponiveis": 131
     },
     {
-      "id": "1",
       "name": "EMEIEF AMERICO FALCÃO",
       "endereco": "Endereço: R. Dom Bosco, 557 - Cristo Redentor, João Pessoa - PB, 58070-470",
       "telefone": "Tel: (83)3218-9375",
@@ -26,11 +24,10 @@
       "foto": "EMEIEF AMERICO FALCÃO.png",
       "turno": "Tarde",
       "serie": "Fundamental1_Fundamental2",
-      "vagas_ofertadas": 200,
-      "vagas_disponiveis": 130
+      "vagasOfertadas": 200,
+      "vagasDisponiveis": 130
     },
     {
-      "id": "2",
       "name": "EMEF PADRE PEDRO SERRÃO",
       "endereco": "Endereço: R. Dom Bosco, 755 - Cristo Redentor, João Pessoa - PB, 58070-470",
       "telefone": "Tel: (83)3218-6726",
@@ -40,11 +37,10 @@
       "foto": "EMEF PADRE PEDRO SERRÃO.png",
       "turno": "Manha",
       "serie": "Fundamental1_Fundamental2",
-      "vagas_ofertadas": 200,
-      "vagas_disponiveis": 130
+      "vagasOfertadas": 200,
+      "vagasDisponiveis": 130
     },
     {
-      "id": "3",
       "name": "EEEF PROF ORLANDO CAVALCANTI GOMES",
       "endereco": "Endereço: R. Pres. Nereu Ramos, S/N - Cristo Redentor, João Pessoa - PB, 58070-440",
       "telefone": "Tel: (83)3218-9375",
@@ -54,11 +50,10 @@
       "foto": "EEEF PROF ORLANDO CAVALCANTI GOMES.png",
       "turno": "Manha_Tarde",
       "serie": "Médio",
-      "vagas_ofertadas": 200,
-      "vagas_disponiveis": 130
+      "vagasOfertadas": 200,
+      "vagasDisponiveis": 130
     },
     {
-      "id": "4",
       "name": "EMEF FENELON CAMARA",
       "endereco": "Endereço: R. Adauto Tolêdo, 157 - Ernesto Geisel, João Pessoa - PB, 58075-260",
       "telefone": "Tel: (83) 3231-5435",
@@ -68,11 +63,10 @@
       "foto": "EMEF FENELON CAMARA.png",
       "turno": "Tarde",
       "serie": "Fundamental2",
-      "vagas_ofertadas": 200,
-      "vagas_disponiveis": 130
+      "vagasOfertadas": 200,
+      "vagasDisponiveis": 130
     },
     {
-      "id": "5",
       "name": "IFPB - CAMPUS JOÃO PESSOA",
       "endereco": "Endereço: Av. Primeiro de Maio, 720 - Jaguaribe, João Pessoa - PB, 58015-435",
       "telefone": "Tel: (83) 3612-1200",
@@ -82,11 +76,10 @@
       "foto": "IFPB - CAMPUS JOÃO PESSOA.png",
       "turno": "Tarde",
       "serie": "Médio",
-      "vagas_ofertadas": 200,
-      "vagas_disponiveis": 130
+      "vagasOfertadas": 200,
+      "vagasDisponiveis": 130
     },
     {
-      "id": "6",
       "name": "EMEF PLACIDO DE ALMEIDA",
       "endereco": "Endereço: Av. Primeiro de Maio, 720 - Renascer, Cabedelo - PB, 58015-435",
       "telefone": "Tel: (83) 3612-1200",
@@ -96,8 +89,8 @@
       "foto": "Placido.jpg",
       "turno": "Manha_Tarde",
       "serie": "Fundamental1_Fundamental2",
-      "vagas_ofertadas": 200,
-      "vagas_disponiveis": 130
+      "vagasOfertadas": 200,
+      "vagasDisponiveis": 130
     }
   ]
 }

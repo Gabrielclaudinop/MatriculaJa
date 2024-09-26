@@ -15,9 +15,9 @@ async function create({ name, value, endereco, telefone, foto, mapa, horarios, i
 }
 
 async function read() {
-  const escolas = await prisma.escolas.findMany({
+  const escolas = await prisma.escola.findMany({
     include: {
-      rede_ensino: true,
+      rede: true,
     },
   });
 
@@ -26,7 +26,7 @@ async function read() {
 
 async function readById(id) {
   if (id) {
-    const escola = await prisma.escolas.findUnique({
+    const escola = await prisma.Escola.findUnique({
       where: {
         id_escola: id,
       },

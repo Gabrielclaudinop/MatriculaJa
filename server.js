@@ -2,13 +2,16 @@
 import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'; 
+import { PrismaClient } from "@prisma/client";
 
 const app = express();
 const PORT = 3000
+const prisma = new PrismaClient();
 
 app.use(express.static("public"))
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: '*',
@@ -27,15 +30,35 @@ app.use('/schools', escolasRoute)
 
 // Rota de contato para receber os dados do formulário
 app.post('/contato', async (req, res) => {
-  const { email, tipo, message } = req.body;
-
+  const {email,tipo,message} = req.body;
+  console.log(req.body)
   try {
     // Salvando no banco de dados com Prisma
-    const contato = await prisma.contato.create({
+    const contato = await prisma.Contato.create({
       data: {
         email,
         tipo,
         message,
+      },
+    });
+
+    res.status(200).json({ message: 'Mensagem enviada e salva com sucesso!' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Ocorreu um erro ao enviar a mensagem.' });
+  }
+});
+
+app.post('/cadastro', async (req, res) => {
+  const {username,email,password} = req.body;
+  console.log(req.body)
+  try {
+    // Salvando no banco de dados com Prisma
+    const contato = await prisma.usuario.create({
+      data: {
+        nome: username,
+        email: email,
+        senha: password,
       },
     });
 

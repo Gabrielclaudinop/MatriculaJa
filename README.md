@@ -4,6 +4,17 @@ O projeto consiste numa aplicação Web feita para agilizar do processo de matr�
 ## npm com error
  Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
 
+## Comandos
+
+### npx prisma migrate dev --name init
+  Inicia o BD
+
+### npx prisma db seed
+  Manda os dados para o BD
+
+### npm run start
+  Inicia o site
+
 ## TABELAS
  const investmentsSql = `
 CREATE TABLE situacao (

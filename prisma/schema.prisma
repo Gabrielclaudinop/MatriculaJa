@@ -37,8 +37,15 @@ model Escola {
 
 model Contato {
   id        Int      @id @default(autoincrement())
-  email     String
-  tipo      String
-  message   String
+  email     String?
+  tipo      String?
+  message   String?
   createdAt DateTime @default(now())
+}
+
+model Usuario {
+  id          Int       @id @default(autoincrement())
+  nome        String
+  email       String       @unique
+  senha    String
 }

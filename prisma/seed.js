@@ -8,10 +8,17 @@ async function main() {
   const file = resolve("prisma", "seeders.json");
 
   const seed = JSON.parse(readFileSync(file));
-
+  console.log(seed)
+  await prisma.redeEnsino.createMany({
+    data: seed.redes,
+  })
+  await prisma.usuario.createMany({
+    data: seed.usuarios
+  })
   await prisma.escola.createMany({
     data: seed.escolas,
   });
+  
 }
 
 main()

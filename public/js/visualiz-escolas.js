@@ -4,8 +4,8 @@ import API from './services/api.js'
 function EscolaCard(escola) {
   return `
   <div class="col">
-    <a href="http://localhost:3000/escola?id=${escola.id_escola}">
-      <button id="${escola.id_escola}"
+    <a href="http://localhost:3000/escola?id=${escola.id}">
+      <button id="${escola.id}"
         class="nav-link"
         data-bs-toggle="tab"
         type="button"
@@ -17,8 +17,8 @@ function EscolaCard(escola) {
         <div style="line-height: 1.6">
           <span style="font-size: 0.9em;">Endereço: ${escola.endereco}</span><br>
           <span style="font-size: 0.9em;">Telefone: ${escola.telefone}</span><br>
-          <span style="font-size: 0.9em;">Rede de Ensino: ${escola.nome_rede}</span><br>
-          <span style="font-size: 0.9em;">Horários: ${escola.horários}</span>
+          <span style="font-size: 0.9em;">Rede de Ensino: ${escola.rede.nomeRede}</span><br>
+          <span style="font-size: 0.9em;">Horários: ${escola.horarios}</span>
           <span style="font-size: 0.9em;">Vagas ofertadas: ${escola.vagasOfertadas}</span>
           <span style="font-size: 0.9em;">Vagas disponíveis: ${escola.vagasDisponiveis}</span>
         </div>

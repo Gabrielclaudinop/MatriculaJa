@@ -9,19 +9,20 @@ const foto_escola = document.getElementById("foto_escola")
 var escolaId = ''
 document.addEventListener('DOMContentLoaded', function() {
   const urlParams = new URLSearchParams(window.location.search)
-  escolaId = urlParams.get("id")
+  escolaId = parseInt(urlParams.get("id"))
 
 console.log(escolaId)
+console.log(typeof(escolaId))
 function createSchoolInfo(escola){
 const view = `
-    <button class="nav-link" id="nav-business-tab" data-bs-toggle="tab" data-bs-target="#produto" escola_num="${escola.id_escola}" type="button" role="tab" aria-controls="nav-strategy-tab" aria-selected="false">
+    <button class="nav-link" id="nav-business-tab" data-bs-toggle="tab" data-bs-target="#produto" escola_num="${escola.id}" type="button" role="tab" aria-controls="nav-strategy-tab" aria-selected="false">
                   <h3 class='' style="font-size: 2em;">INFORMAÇÕES</h3>
                   <div style="line-height: 1.6">
                   <span style="font-size: 0.9em;">${escola.endereco}</span>
                   <span style="font-size: 0.9em;">${escola.telefone}</span>
-                  <span style="font-size: 0.9em;">${escola.horários}</span>
+                  <span style="font-size: 0.9em;">${escola.horarios}</span>
                   </div></button>
-    <button class="nav-link" id="nav-business-tab" data-bs-toggle="tab" data-bs-target="#mapa" escola_num="${escola.id_escola}" type="button" role="tab" aria-controls="nav-strategy-tab" aria-selected="false">
+    <button class="nav-link" id="nav-business-tab" data-bs-toggle="tab" data-bs-target="#mapa" escola_num="${escola.id}" type="button" role="tab" aria-controls="nav-strategy-tab" aria-selected="false">
       <h3 class='' style="font-size: 2em;">MAPA</h3>
       <div style="line-height: 1.6">
       <span style="font-size: 0.9em;">${escola.endereco}</span>
@@ -40,9 +41,9 @@ titulo.innerHTML = `${escola.name}`
 
 async function loadSchoolInfo(){
   try {
-    const escola = await API.read(`/schools/${escolaId}`); // Faz a requisição para obter todas as escolas
+    const escola = await API.read(`/schools/${escolaId}`); // Faz a requisição para obter a escola
     console.log(escola)
-    createSchoolInfo(escola); // Cria o card de cada escola
+    createSchoolInfo(escola); // Cria o card da escola
   } catch (error) {
     console.error('Erro ao carregar escolas:', error);
   }

@@ -26,12 +26,12 @@ async function read() {
 
 async function readById(id) {
   if (id) {
-    const escola = await prisma.Escola.findUnique({
+    const escola = await prisma.escola.findUnique({
       where: {
-        id_escola: id,
+        id: parseInt(id,10)
       },
       include: {
-        rede_ensino: true,
+        rede: true,
       },
     });
 

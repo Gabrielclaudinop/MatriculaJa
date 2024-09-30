@@ -12,6 +12,9 @@ O projeto consiste numa aplicação Web feita para agilizar do processo de matr�
 ### npx prisma db seed
   Manda os dados para o BD
 
+### npx prisma migrate reset
+Reseta o banco de dados
+
 ### npm run start
   Inicia o site
 

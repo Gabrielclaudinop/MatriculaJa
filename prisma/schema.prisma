@@ -20,17 +20,17 @@ model RedeEnsino {
 model Escola {
   id       Int      @id @default(autoincrement())
   idRede            Int?
-  name              String?
-  endereco          String?
-  telefone          String?
+  name              String
+  endereco          String
+  telefone          String
   horarios          String?
   mapa              String?
   foto              String?
   value             String?
-  serie             String?
+  serie             String
   turno             String?
-  vagasOfertadas    Int?
-  vagasDisponiveis  Int?
+  vagasOfertadas    Int
+  vagasDisponiveis  Int
 
   rede              RedeEnsino? @relation(fields: [idRede], references: [idRedeEnsino])
 }

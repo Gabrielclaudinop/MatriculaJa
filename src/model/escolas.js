@@ -1,15 +1,16 @@
 //Esse arquivo é importado em escolas.route.js
 import prisma from '../database/database.js';
 
-async function create({ name, value, endereco, telefone, foto, mapa, horarios, id_rede, serie, turno, vagas_ofertadas, vagas_disponiveis }) {
-  if (name && value) {
-    const createdEscola = await prisma.escolas.create({
+async function create({ idRede, name, endereco, telefone, horarios, mapa, foto, value, serie, turno, vagasOfertadas,vagasDisponiveis }) {
+  console.log("oi",idRede, name, endereco, telefone, horarios, mapa, foto, value, serie, turno, vagasOfertadas,vagasDisponiveis)
+  try{
+    const createdEscola = await prisma.escola.create({
       data: {
-        name, value, endereco, telefone, foto, mapa, horarios, id_rede, serie, turno, vagas_ofertadas, vagas_disponiveis,},
+        idRede, name, endereco, telefone, horarios, mapa, foto, value, serie, turno, vagasOfertadas,vagasDisponiveis},
     });
 
     return createdEscola;
-  } else {
+  } catch(error) {
     throw new Error('Unable to create escola');
   }
 }

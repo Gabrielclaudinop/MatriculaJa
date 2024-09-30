@@ -57,7 +57,6 @@ router.get('/filter', async (req,res)=>{
 // Rota PUT para atualizar uma escola pelo ID
 router.put('/:id', async (req, res) => {
   try {
-    console.log("funciona")
     const id = req.params.id;
     const index = escolas.findIndex(e => e.id === id);
   
@@ -71,7 +70,14 @@ router.put('/:id', async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
-
+router.post("/create", async (req,res) => {
+  try {
+    Escolas.create(req.body)
+    
+  } catch(error){
+    res.status(400).json({message: error.message})
+  }
+})
 // Rota DELETE para remover uma escola pelo ID
 router.delete('/:id', async (req, res) => {
   try {

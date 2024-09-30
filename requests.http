@@ -1,5 +1,17 @@
 @domain=http://localhost:3000
 
+### Create User
+ 
+# @name createdUser
+POST {{domain}}/cadastrar
+Content-Type: application/json
+ 
+{
+  "name": "Luiz",
+  "email": "luiz@email.com",
+  "password": "123"
+}
+
 ### list data
 GET {{domain}}/dados
 ### create data

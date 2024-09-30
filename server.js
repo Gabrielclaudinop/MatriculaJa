@@ -3,6 +3,7 @@ import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'; 
 import { PrismaClient } from "@prisma/client";
+import Escolas from './src/model/escolas.js'
 
 const app = express();
 const PORT = 3000
@@ -33,15 +34,6 @@ app.post('/contato', async (req, res) => {
   const {email,tipo,message} = req.body;
   console.log(req.body)
   try {
-    // Salvando no banco de dados com Prisma
-    const contato = await prisma.Contato.create({
-      data: {
-        email,
-        tipo,
-        message,
-      },
-    });
-
     res.status(200).json({ message: 'Mensagem enviada e salva com sucesso!' });
   } catch (error) {
     console.error(error);
@@ -69,6 +61,24 @@ app.post('/cadastro', async (req, res) => {
   }
 });
 
+app.post('/login', async (req, res) => {
+  const {email,password} = req.body;
+  console.log(req.body)
+  try {
+    // Salvando no banco de dados com Prisma
+    const usuario = await Escolas.readByEmail(email);
+    
+    if (usuario.senha == password){
+      res.status(200).json({message: "Usuario logado com sucesso!"})
+    }
+    else{
+      res.status(401).json({message: "Senha incorreta"})
+    };
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Ocorreu um erro.' });
+  }
+});
 //rendering pages
 app.get("/home", (req, res) => {
   res.sendFile('index.html', {root:'public/html'})

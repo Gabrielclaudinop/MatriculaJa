@@ -115,6 +115,11 @@
       "nome": "Luis",
       "email": "professorluis@gmail.com",
       "senha": "135789"
+    },
+    {
+      "nome": "Manuel Gomes",
+      "email": "Canetaazul@gmail.com",
+      "senha": "azulcaneta"
     }
   ]
 }

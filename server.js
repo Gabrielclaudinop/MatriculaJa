@@ -33,7 +33,14 @@ app.use('/schools', escolasRoute)
 app.post('/contato', async (req, res) => {
   const {email,tipo,message} = req.body;
   console.log(req.body)
+  
   try {
+    const contato = await prisma.Contato.create({
+      data: {
+        email,
+        tipo,
+      message}});
+
     res.status(200).json({ message: 'Mensagem enviada e salva com sucesso!' });
   } catch (error) {
     console.error(error);
@@ -54,10 +61,10 @@ app.post('/cadastro', async (req, res) => {
       },
     });
 
-    res.status(200).json({ message: 'Mensagem enviada e salva com sucesso!' });
+    res.status(200).json({ message: 'Cadastro efetuado com sucesso!' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Ocorreu um erro ao enviar a mensagem.' });
+    res.status(500).json({ error: 'Ocorreu um erro ao solicitar cadastro.' });
   }
 });
 

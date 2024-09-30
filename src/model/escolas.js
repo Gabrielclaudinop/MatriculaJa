@@ -38,10 +38,10 @@ async function readById(id) {
     if (escola) {
       return escola;
     } else {
-      throw new Error('Escola not found');
+      throw new Error('Escola não encontrada');
     }
   } else {
-    throw new Error('Unable to find escola');
+    throw new Error('Id inválido');
   }
 }
 

@@ -8,7 +8,6 @@ async function main() {
   const file = resolve("prisma", "seeders.json");
 
   const seed = JSON.parse(readFileSync(file));
-  console.log(seed)
   await prisma.redeEnsino.createMany({
     data: seed.redes,
   })

@@ -3,7 +3,9 @@ import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'; 
 import { PrismaClient } from "@prisma/client";
-import Escolas from './src/model/escolas.js'
+import Usuarios from './src/model/usuarios.js'
+
+
 
 const app = express();
 const PORT = 3000
@@ -53,15 +55,10 @@ app.post('/cadastro', async (req, res) => {
   console.log(req.body)
   try {
     // Salvando no banco de dados com Prisma
-    const contato = await prisma.usuario.create({
-      data: {
-        nome: username,
-        email: email,
-        senha: password,
-      },
-    });
+    const usuario = await Usuarios.RegisterUser(username,email,password)
+    
 
-    res.status(200).json({ message: 'Cadastro efetuado com sucesso!' });
+    res.status(200).json({ message: 'Cadastro efetuado com sucesso!',usuario});
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Ocorreu um erro ao solicitar cadastro.' });
@@ -73,9 +70,9 @@ app.post('/login', async (req, res) => {
   console.log(req.body)
   try {
     // Salvando no banco de dados com Prisma
-    const usuario = await Escolas.readByEmail(email);
+    const usuario = await Usuarios.LoginUser(email,password);
     
-    if (usuario.senha == password){
+    if (usuario){
       res.status(200).json({message: "Usuario logado com sucesso!"})
     }
     else{

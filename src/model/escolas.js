@@ -46,22 +46,6 @@ async function readById(id) {
   }
 }
 
-async function readByEmail(email) {
-  if (email) {
-    const usuario = await prisma.usuario.findUnique({
-      where: {
-        email: email
-      }
-    });
 
-    if (usuario) {
-      return usuario;
-    } else {
-      throw new Error('Não há conta com este E-mail');
-    }
-  } else {
-    throw new Error('E-mail inválido');
-  }
-}
-export default { create, read, readById, readByEmail };
+export default { create, read, readById};
  

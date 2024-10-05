@@ -17,6 +17,14 @@ async function main() {
   await prisma.escola.createMany({
     data: seed.escolas,
   });
+
+  await prisma.turma.createMany({
+    data: seed.turmas,
+  });
+
+  await prisma.turmaEscola.createMany({
+    data: seed.turmasEscolas,
+  });
   
 }
 

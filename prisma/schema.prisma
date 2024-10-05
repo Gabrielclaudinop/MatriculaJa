@@ -29,9 +29,7 @@ model Escola {
   value             String?
   serie             String
   turno             String?
-  vagasOfertadas    Int
-  vagasDisponiveis  Int
-
+  turmas TurmaEscola[]
   rede              RedeEnsino? @relation(fields: [idRede], references: [idRedeEnsino])
 }
 
@@ -48,4 +46,25 @@ model Usuario {
   nome        String
   email       String       @unique
   senha    String
+}
+
+model TurmaEscola {
+  id_escola_fk           Int // Foreign key to Escola
+  id_turma_fk            Int
+  ano                    Int // esse campo iria diferenciar as vagas 
+  qtde_vagas_ofertadas   Int
+  qtde_vagas_disponiveis Int
+
+  escola     Escola                   @relation(fields: [id_escola_fk], references: [id], onDelete: Cascade)
+  turma Turma @relation(fields: [id_turma_fk], references: [id_turma], onDelete: Cascade)
+
+  @@unique([id_escola_fk, id_turma_fk])
+}
+
+model Turma {
+  id_turma Int @id @default(autoincrement())
+  nome_turma String
+  serie String
+  turno String
+  escolas TurmaEscola[]
 }

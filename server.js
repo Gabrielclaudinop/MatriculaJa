@@ -27,10 +27,10 @@ app.use(
 
 //importing routes
 import escolasRoute from './src/routes/escolas.route.js'
-
+import turmasRoute from './src/routes/turmas.route.js'
 //using route
 app.use('/schools', escolasRoute)
-
+app.use('/turmas', turmasRoute)
 // Rota de contato para receber os dados do formulário
 app.post('/contato', async (req, res) => {
   const {email,tipo,message} = req.body;

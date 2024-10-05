@@ -2,3 +2,5 @@
 GET http://localhost:3000/schools
 ###
 Get http://localhost:3000/12412
+###
+GET http://localhost:3000/turmas/vagas

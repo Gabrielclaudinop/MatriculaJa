@@ -1,7 +1,8 @@
 import express from 'express';
 import { escolas } from '../data/schools.js';
 import Escolas from '../model/escolas.js'
-
+import 'dotenv/config';
+import { isAuthenticated } from './middleware/auth.js';
 
 // Classe HTTPError para tratar erros personalizados
 class HTTPError extends Error {
@@ -70,7 +71,7 @@ router.put('/:id', async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
-router.post("/create", async (req,res) => {
+router.post("/create", isAuthenticated, async (req,res) => {
   try {
     Escolas.create(req.body)
     
@@ -79,7 +80,7 @@ router.post("/create", async (req,res) => {
   }
 })
 // Rota DELETE para remover uma escola pelo ID
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', isAuthenticated, async (req, res) => {
   try {
     const id = req.params.id;
     const index = escolas.findIndex(e => e.id === id);

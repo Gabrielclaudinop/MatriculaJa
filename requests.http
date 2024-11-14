@@ -1,21 +1,13 @@
 @domain=http://localhost:3000
-@createdInvestmentId = {{createdInvestment.response.body.$.id}}
-@token = {{signin.response.body.$.token}}
+@token = {{criaescola.response.body.$.tkn}}
 
 ### Create User
  
-# @name createdUser
-POST {{domain}}/cadastrar
-Content-Type: application/json
- 
-{
-  "name": "Luiz",
-  "email": "luiz@email.com",
-  "password": "123"
-}
 ### Criar escola
+# @name criaescola
 POST {{domain}}/schools/create
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "idRede": 1,
@@ -31,34 +23,10 @@ Content-Type: application/json
   "vagasOfertadas": 200,
   "vagasDisponiveis": 130
 }
+### Testar autênticação
+GET {{domain}}/rota_secreta
+Content-Type: application/json
 
-### Signin 401
- 
-# @name signin
-POST {{domain}}/signin
-Content-Type: application/json
- 
 {
-  "email": "luiz@email.com",
-  "password": "321"
+  "aipaipara":"ai"
 }
- 
-### Signin Ok
- 
-# @name signin
-POST {{domain}}/signin
-Content-Type: application/json
- 
-{
-  "email": "luiz@email.com",
-  "password": "12345678"
-}
- 
-### Read User (whitout token)
- 
-GET {{domain}}/users/me
- 
-### Read User (with token)
- 
-GET {{domain}}/users/me
-Authorization: bearer {{token}}

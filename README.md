@@ -6,6 +6,11 @@ O projeto consiste numa aplicação Web feita para agilizar do processo de matr�
 
 ## Comandos
 
+|  Função  | Comando |
+| -------- | ------- |
+| Inicia o BD  | npx prisma migrate dev --name init    |
+
+
 ### Inicia o BD
   npx prisma migrate dev --name init
 

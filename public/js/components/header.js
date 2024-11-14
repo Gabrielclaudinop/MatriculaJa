@@ -38,6 +38,13 @@ const header = `
             </a>
           </li>
 
+          <!-- Botão de Logout -->
+          <li class="nav-item">
+            <button class="nav-link" onclick="logout()" style="border: none; background: none;">
+              <small class="small-title"><strong class="text-purple"></strong>LOGOUT</small>
+            </button>
+          </li>
+
 
         </ul>
         </div>

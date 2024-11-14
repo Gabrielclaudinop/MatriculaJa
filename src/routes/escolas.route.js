@@ -2,7 +2,7 @@ import express from 'express';
 import { escolas } from '../data/schools.js';
 import Escolas from '../model/escolas.js'
 import 'dotenv/config';
-import { isAuthenticated } from './middleware/auth.js';
+import { isAuthenticated } from '../middleware/auth.js';
 
 // Classe HTTPError para tratar erros personalizados
 class HTTPError extends Error {

@@ -151,6 +151,20 @@
       window.location.href = "../index.html";
       return false;
     }
+
+    function logout() {
+    // Faz uma requisição para a rota de logout
+    fetch('/logout', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.message); // Exibe a mensagem de confirmação do backend
+            // Remove o token de autenticação do localStorage ou sessionStorage
+            localStorage.removeItem('token'); // Ajuste conforme o armazenamento usado
+            // Redireciona para a página de login
+            window.location.href = 'public/html/login.html';
+        })
+        .catch(error => console.error('Erro ao efetuar logout:', error));
+}
   </script>
 
 </body>

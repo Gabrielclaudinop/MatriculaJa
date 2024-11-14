@@ -1,12 +1,13 @@
-/* CONST, definição de variáveis constantes */
+/*importações*/
 import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'; 
+import 'dotenv/config';
 import { PrismaClient } from "@prisma/client";
 import Usuarios from './src/model/usuarios.js'
-import 'dotenv/config';
-import { isAuthenticated } from './middleware/auth.js';
+import { isAuthenticated } from './src/middleware/auth.js';
 
+/* CONST, definição de variáveis constantes */
 const app = express();
 const PORT = 3000
 const prisma = new PrismaClient();
@@ -28,9 +29,11 @@ app.use(
 //importing routes
 import escolasRoute from './src/routes/escolas.route.js'
 import turmasRoute from './src/routes/turmas.route.js'
+
 //using route
 app.use('/schools', escolasRoute)
 app.use('/turmas', turmasRoute)
+
 // Rota de contato para receber os dados do formulário
 app.post('/contato', async (req, res) => {
   const {email,tipo,message} = req.body;
@@ -50,6 +53,7 @@ app.post('/contato', async (req, res) => {
   }
 });
 
+//Rota para efetuação de cadastro
 app.post('/cadastro', async (req, res) => {
   const {username,email,password} = req.body;
   console.log(req.body)
@@ -65,61 +69,36 @@ app.post('/cadastro', async (req, res) => {
   }
 });
 
+//Rota para efetuação de Login
 app.post('/login', async (req, res) => {
   const {email,password} = req.body;
   console.log(req.body)
   try {
     // Salvando no banco de dados com Prisma
-    const usuario = await Usuarios.LoginUser(email,password);
+    const momentaneo = await Usuarios.LoginUser(email,password);
     
-    if (usuario){
-      res.status(200).json({message: "Usuario logado com sucesso!"})
+    if (momentaneo.usuario){
+      let tkn = momentaneo.token
+      return res.json({ auth: true, tkn })
     }
     else{
-      res.status(401).json({message: "Senha incorreta"})
+      return res.status(401).json({message: "Senha incorreta"})
     };
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Ocorreu um erro.' });
   }
 });
-router.get('/users/me', isAuthenticated, async (req, res) => {
-  try {
-    const userId = req.userId;
- 
-    const user = await User.readById(userId);
- 
-    delete user.password;
- 
-    return res.json(user);
-  } catch (error) {
-    throw new HTTPError('Unable to find user', 400);
-  }
+
+app.post('/logout', (req, res) => {
+  // Aqui você pode limpar o token, dependendo de onde ele é armazenado
+  res.status(200).json({ message: "Logout efetuado com sucesso" });
 });
- 
-router.post('/signin', async (req, res) => {
-  try {
-    const { email, password } = req.body;
- 
-    const { id: userId, password: hash } = await User.read({ email });
- 
-    const match = await bcrypt.compare(password, hash);
- 
-    if (match) {
-      const token = jwt.sign(
-        { userId },
-        process.env.JWT_SECRET,
-        { expiresIn: 3600000 } // 1h
-      );
- 
-      return res.json({ auth: true, token });
-    } else {
-      throw new Error('User not found');
-    }
-  } catch (error) {
-    res.status(401).json({ error: 'User not found' });
-  }
-});
+
+app.get('rota_secreta', isAuthenticated, async (req, res) => {
+  res.status(200).json({message: "Rota acessada com sucesso"})
+})
+
 //rendering pages
 app.get("/home", (req, res) => {
   res.sendFile('index.html', {root:'public/html'})
@@ -129,7 +108,7 @@ app.get("/login", (req, res) => {
   res.sendFile('login.html', {root:'public/html'})
 })
 
-app.get("/escolas", (req, res) => {
+app.get("/escolas",isAuthenticated, (req, res) => {
   res.sendFile('visualiz-escolas.html', {root:'public/html'})
 })
 

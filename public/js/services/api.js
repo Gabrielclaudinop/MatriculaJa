@@ -25,8 +25,23 @@ const API = {
   },
 
   // Método para fazer uma requisição POST para criar novos dados (escolas)
-  async create(endpoint, data) {
+  async create(endpoint, data, auth = true) {
     try {
+      const url = `${domain}${resource}`;
+
+      const config = {
+        method: 'POST',
+        mode: 'cors',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      };
+    
+      if (auth) {
+        config.headers.Authorization = `Bearer ${Auth.getToken()}`;
+      }
+      
       const response = await fetch(`${this.baseUrl}${endpoint}`, {
         method: 'POST',
         headers: {
@@ -34,7 +49,7 @@ const API = {
         },
         body: JSON.stringify(data),
       });
-
+      
       if (!response.ok) {
         throw new Error(`Erro ao criar dados: ${response.statusText}`);
       }

@@ -55,3 +55,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const homepage = document.querySelector('.navbar-component-js');
     homepage.insertAdjacentHTML('afterbegin', header);
 });
+
+function logout(){
+  localStorage.removeItem('authToken')
+  localStorage.removeItem('user')
+
+  window.location.href= "./login.html"
+}

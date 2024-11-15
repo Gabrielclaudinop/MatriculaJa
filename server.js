@@ -29,10 +29,12 @@ app.use(
 //importing routes
 import escolasRoute from './src/routes/escolas.route.js'
 import turmasRoute from './src/routes/turmas.route.js'
+import authRoute from './src/routes/auth.route.js'
 
 //using route
 app.use('/schools', escolasRoute)
 app.use('/turmas', turmasRoute)
+app.use('/auth', authRoute)
 
 // Rota de contato para receber os dados do formulário
 app.post('/contato', async (req, res) => {
@@ -68,36 +70,6 @@ app.post('/cadastro', async (req, res) => {
     res.status(500).json({ error: 'Ocorreu um erro ao solicitar cadastro.' });
   }
 });
-
-//Rota para efetuação de Login
-app.post('/login', async (req, res) => {
-  const {email,password} = req.body;
-  console.log(req.body)
-  try {
-    // Salvando no banco de dados com Prisma
-    const momentaneo = await Usuarios.LoginUser(email,password);
-    
-    if (momentaneo.usuario){
-      let tkn = momentaneo.token
-      return res.json({ auth: true, tkn })
-    }
-    else{
-      return res.status(401).json({message: "Senha incorreta"})
-    };
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Ocorreu um erro.' });
-  }
-});
-
-app.post('/logout', (req, res) => {
-  // Aqui você pode limpar o token, dependendo de onde ele é armazenado
-  res.status(200).json({ message: "Logout efetuado com sucesso" });
-});
-
-app.get('rota_secreta', isAuthenticated, async (req, res) => {
-  res.status(200).json({message: "Rota acessada com sucesso"})
-})
 
 //rendering pages
 app.get("/home", (req, res) => {

@@ -38,16 +38,13 @@ Free Bootstrap 5 HTML Template
 -->
 
 </head>
-
 <body id="section_1">
-
-
-
   <nav class="navbar navbar-expand-lg bg-white shadow-lg navbar-component-js">
-
   </nav>
-
-    <main>
+    <div style="height: 60vh; display: flex; justify-content: center; align-items: center; width: 100%;" id="loading-div">
+      <h1>Carregando...</h1>
+    </div>
+    <main style="display: none;" id="page-content">
         <section class="services section-padding" id="section_3">
           <div class="col-lg-10 col-12 text-start" style="position: relative; top: 0; left: 0;">
             <h2 style="margin-top: 0; margin-left:9.5%; font-size: 37px;" class="" >Filtro de Escolas</h2>
@@ -113,6 +110,38 @@ Free Bootstrap 5 HTML Template
     </footer>
 
   <!-- JAVASCRIPT FILES -->
+   <script>
+      //parte de estilização
+      const loadingDiv = document.getElementById('loading-div');
+      const pageContent = document.getElementById('page-content')
+
+      const checkAuth = async () => {
+        // ----------- IMPORTANTE ---------
+        const isAuthenticated = localStorage.getItem('authToken'); 
+
+        const options = {
+            method: "POST",
+            //------- IMPORTANTE --------
+            headers: {
+              "Content-Type": "application/json",
+              'Authorization': `Bearer ${isAuthenticated}`,
+            },
+        };
+
+        const response = await fetch('http://localhost:3000/auth/validate-auth', options)
+        const auth = await response.json();
+        //MODELO DE RESPOSTA
+        // { messagem & isValid (booleano)}
+        if(auth.isValid){
+          loadingDiv.style.display = 'none'
+          pageContent.style.display = 'block'
+        }else{
+          window.location.href = "./login.html";
+        }
+      }
+
+      checkAuth()
+   </script>
   <script src='../js/visualiz-escolas.js' type="module"></script>
   <script src="./js/home.js" type="module"></script>
   <!--CABEÇALHO NAO MEXA-->

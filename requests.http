@@ -30,3 +30,12 @@ Content-Type: application/json
 {
   "aipaipara":"ai"
 }
+
+### login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "smurf@gmail.com",
+  "password": "1234"
+}

@@ -1,8 +1,10 @@
 import { resolve } from "node:path";
 import { readFileSync } from "node:fs";
 import { PrismaClient } from "@prisma/client";
+import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
+const saltRounds = Number(process.env.BCRYPT_SALT);
 
 async function main() {
   const file = resolve("prisma", "seeders.json");
@@ -11,9 +13,17 @@ async function main() {
   await prisma.redeEnsino.createMany({
     data: seed.redes,
   })
-  await prisma.usuario.createMany({
-    data: seed.usuarios
-  })
+
+  for( const usuario of seed.usuarios){
+    const {senha, ...rest} = usuario
+    const hashedPasswd = await bcrypt.hash(senha, saltRounds);
+    await prisma.usuario.create({
+      data: {
+        ...rest,
+        senha: hashedPasswd
+      }
+    })
+  }
   await prisma.escola.createMany({
     data: seed.escolas,
   });

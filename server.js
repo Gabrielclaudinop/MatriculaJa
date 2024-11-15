@@ -80,7 +80,7 @@ app.get("/login", (req, res) => {
   res.sendFile('login.html', {root:'public/html'})
 })
 
-app.get("/escolas",isAuthenticated, (req, res) => {
+app.get("/escolas", (req, res) => {
   res.sendFile('visualiz-escolas.html', {root:'public/html'})
 })
 

@@ -45,8 +45,10 @@
 
             <nav class="navbar navbar-expand-lg bg-white shadow-lg navbar-component-js">
             </nav>
-
-            <main>
+            <div style="height: 60vh; display: flex; justify-content: center; align-items: center; width: 100%;" id="loading-div">
+              <h1>Carregando...</h1>
+            </div>
+            <main style="display: none;" id="page-content">
 
                   <section class="services section-padding" id="section_3">
 
@@ -133,7 +135,40 @@
 
                         </div>
                       </div>-->
-
+            
+                      <!--Script para páginas restritas-->
+                      <script>
+                        //parte de estilização
+                        const loadingDiv = document.getElementById('loading-div');
+                        const pageContent = document.getElementById('page-content')
+                  
+                        const checkAuth = async () => {
+                          // ----------- IMPORTANTE ---------
+                          const isAuthenticated = localStorage.getItem('authToken'); 
+                  
+                          const options = {
+                              method: "POST",
+                              //------- IMPORTANTE --------
+                              headers: {
+                                "Content-Type": "application/json",
+                                'Authorization': `Bearer ${isAuthenticated}`,
+                              },
+                          };
+                  
+                          const response = await fetch('http://localhost:3000/auth/validate-auth', options)
+                          const auth = await response.json();
+                          //MODELO DE RESPOSTA
+                          // { messagem & isValid (booleano)}
+                          if(auth.isValid){
+                            loadingDiv.style.display = 'none'
+                            pageContent.style.display = 'block'
+                          }else{
+                            window.location.href = "./login";
+                          }
+                        }
+                  
+                        checkAuth()
+                     </script>
             <!-- JAVASCRIPT FILES -->
             <script src='../js/info-escola.js' type="module"></script>
             <!--CABEÇALHO NAO MEXA-->

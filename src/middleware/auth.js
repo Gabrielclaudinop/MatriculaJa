@@ -6,6 +6,7 @@ function isAuthenticated(req, res, next) {
     const { authorization } = req.headers;
     //------- IMPORTANTE --------
     const [, token] = authorization.split(' ');
+    console.log(token, "Print do Token")
     //------- IMPORTANTE --------
     const { userId } = jwt.verify(token, process.env.JWT_SECRET);
  
@@ -13,6 +14,7 @@ function isAuthenticated(req, res, next) {
  
     next();
   } catch (error) {
+    console.log(req.headers, "Cabeçalho da requisição")
     res.status(401).send({ auth: false, message: 'Token invalid.' });
   }
 }

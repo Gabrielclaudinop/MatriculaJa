@@ -3,6 +3,8 @@ import { escolas } from '../data/schools.js';
 import Escolas from '../model/escolas.js'
 import 'dotenv/config';
 import { isAuthenticated } from '../middleware/auth.js';
+import { validate } from '../middleware/validate.js';
+import { z } from 'zod';
 
 // Classe HTTPError para tratar erros personalizados
 class HTTPError extends Error {
@@ -15,7 +17,7 @@ class HTTPError extends Error {
 const router = express.Router();
 
 // Rota GET para listar todas as escolas
-router.get('/', async (req, res) => {
+router.get('/',async (req, res) => {
   try {
     const schools = await Escolas.read()
     return res.json(schools); // Retorna a lista de escolas
@@ -71,7 +73,19 @@ router.put('/:id', async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
-router.post("/create", isAuthenticated, async (req,res) => {
+router.post("/create", isAuthenticated,
+  validate(
+  z.object({
+    body: z.object({
+      idRede: z.number(),
+      name: z.string(),
+      endereco: z.string(),
+      telefone: z.string(),
+      turno: z.string(),
+      serie: z.string(),
+    }),
+  })
+), async (req,res) => {
   try {
     Escolas.create(req.body)
     

@@ -4,6 +4,7 @@ function isAuthenticated(req, res, next) {
   try {
     //------- IMPORTANTE --------
     const { authorization } = req.headers;
+    console.log(authorization)
     //------- IMPORTANTE --------
     const [, token] = authorization.split(' ');
     console.log(token, "Print do Token")

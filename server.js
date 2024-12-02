@@ -6,6 +6,8 @@ import 'dotenv/config';
 import { PrismaClient } from "@prisma/client";
 import Usuarios from './src/model/usuarios.js'
 import { isAuthenticated } from './src/middleware/auth.js';
+import { z } from 'zod';
+import { validate } from './src/middleware/validate.js';
 
 /* CONST, definição de variáveis constantes */
 const app = express();

@@ -2,7 +2,7 @@
 import prisma from '../database/database.js';
 
 async function create({ idRede, name, endereco, telefone, horarios, mapa, foto, value, serie, turno, vagasOfertadas,vagasDisponiveis }) {
-  console.log("oi",idRede, name, endereco, telefone, horarios, mapa, foto, value, serie, turno, vagasOfertadas,vagasDisponiveis)
+  console.log("oi", idRede, name, endereco, telefone, horarios, mapa, foto, value, serie, turno, vagasOfertadas,vagasDisponiveis)
   try{
     const createdEscola = await prisma.escola.create({
       data: {

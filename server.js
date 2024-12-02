@@ -58,7 +58,15 @@ app.post('/contato', async (req, res) => {
 });
 
 //Rota para efetuação de cadastro
-app.post('/cadastro', async (req, res) => {
+app.post('/cadastro', validate(
+  z.object({
+    body: z.object({
+      username: z.string(),
+      email: z.string(),
+      password: z.string(),
+    }),
+  })
+),async (req, res) => {
   const {username,email,password} = req.body;
   console.log(req.body)
   try {

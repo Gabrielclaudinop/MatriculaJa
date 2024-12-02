@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+
  
 function isAuthenticated(req, res, next) {
   try {

@@ -1,5 +1,4 @@
 import express from 'express';
-import { escolas } from '../data/schools.js';
 import Escolas from '../model/escolas.js'
 import 'dotenv/config';
 import { isAuthenticated } from '../middleware/auth.js';
@@ -32,7 +31,7 @@ router.get('/:id', async (req, res) => {
   try {
     const id = req.params.id;
     const escola = await Escolas.readById(id)
-  
+    
     if (escola) {
       return res.json(escola);
     } else {

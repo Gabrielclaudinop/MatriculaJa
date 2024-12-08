@@ -6,7 +6,6 @@ O projeto consiste numa aplicação Web feita para agilizar do processo de matr�
 | -------- | ------- |
 | Inicia o BD  | npx prisma migrate dev --name init    |
 |npm com error |Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser|
-|Iniciar o BD  |npx prisma migrate dev --name init|
 |Mandar os dados para o BD|npx prisma db seed|
 |Resetar o banco de dados|npx prisma migrate reset| 
 |Iniciar o site|npm run start|

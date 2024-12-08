@@ -12,7 +12,9 @@ router.post('/login',
     z.object({
       body: z.object({
         email: z.string(),
-        password: z.string(),
+        password: z.string().regex(/^(?=.*\d)(?=.*[^\w\s]).*$/, {
+          message: "Sua senha deve ter pelo ao menos um símbolo e número, além de ter mais de 5 carácteres.",
+        }),
       }),
     })
   ),login)

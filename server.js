@@ -39,7 +39,15 @@ app.use('/turmas', turmasRoute)
 app.use('/auth', authRoute)
 
 // Rota de contato para receber os dados do formulário
-app.post('/contato', async (req, res) => {
+app.post('/contato', validate(
+  z.object({
+    body: z.object({
+      email: z.string(),
+      tipo: z.string(),
+      message: z.string(),
+    })
+  })
+), async (req, res) => {
   const {email,tipo,message} = req.body;
   console.log(req.body)
   
@@ -63,7 +71,9 @@ app.post('/cadastro', validate(
     body: z.object({
       username: z.string(),
       email: z.string(),
-      password: z.string(),
+      password: z.string().regex(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$/, {
+        message: "Sua senha deve ter pelo ao menos um símbolo e número, além de ter mais de 5 carácteres.",
+      }),
     }),
   })
 ),async (req, res) => {

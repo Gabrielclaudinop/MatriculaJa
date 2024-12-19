@@ -8,6 +8,7 @@ import Usuarios from './src/model/usuarios.js'
 import { isAuthenticated } from './src/middleware/auth.js';
 import { z } from 'zod';
 import { validate } from './src/middleware/validate.js';
+import SendMail from './src/services/SendMail.js';
 
 /* CONST, definição de variáveis constantes */
 const app = express();
@@ -82,8 +83,7 @@ app.post('/cadastro', validate(
   try {
     // Salvando no banco de dados com Prisma
     const usuario = await Usuarios.RegisterUser(username,email,password)
-    
-
+    await SendMail.createNewUser(email)
     res.status(200).json({ message: 'Cadastro efetuado com sucesso!',usuario});
   } catch (error) {
     console.error(error);

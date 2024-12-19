@@ -14,7 +14,7 @@ async function createNewUser(to) {
       text: `Conta criada com sucesso.\n\nAcesse o aplicativo para gerenciar o cadastro de comidas.`,
       html: `<h1>Conta criada com sucesso.</h1><p>Acesse o aplicativo para gerenciar o cadastro de comidas.</p>`,
     });
- 
+    console.log("Entrou no createNewUser")
     if (process.env.NODE_ENV === 'development') {
       console.log(`Send email: ${nodemailer.getTestMessageUrl(info)}`);
     }

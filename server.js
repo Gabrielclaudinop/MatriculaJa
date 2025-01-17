@@ -3,12 +3,17 @@ import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'; 
 import 'dotenv/config';
+import multer from 'multer';
+
 import { PrismaClient } from "@prisma/client";
 import Usuarios from './src/model/usuarios.js'
 import { isAuthenticated } from './src/middleware/auth.js';
 import { z } from 'zod';
 import { validate } from './src/middleware/validate.js';
 import SendMail from './src/services/SendMail.js';
+import uploadConfig from './src/config/multer.js';
+import Image from './src/model/image.js';
+
 
 /* CONST, definição de variáveis constantes */
 const app = express();
@@ -33,12 +38,12 @@ app.use(
 import escolasRoute from './src/routes/escolas.route.js'
 import turmasRoute from './src/routes/turmas.route.js'
 import authRoute from './src/routes/auth.route.js'
-
+import userRoute from './src/routes/user.route.js'
 //using route
 app.use('/schools', escolasRoute)
 app.use('/turmas', turmasRoute)
 app.use('/auth', authRoute)
-
+app.use('/user', userRoute)
 // Rota de contato para receber os dados do formulário
 app.post('/contato', validate(
   z.object({
@@ -102,6 +107,10 @@ app.get("/login", (req, res) => {
 
 app.get("/escolas", (req, res) => {
   res.sendFile('visualiz-escolas.html', {root:'public/html'})
+})
+
+app.get("/credenciais", (req,res)=>{
+  res.sendFile('credenciais.html', {root:'public/html'})
 })
 
 app.get("/cadastro", (req, res) => {

@@ -148,6 +148,17 @@
             required
             style="padding: 20px"
           />
+          <label for="usuario"></label>
+          <input
+            type="email"
+            id="usuario"
+            name="usuario"
+            placeholder="Usuario"
+            onfocus="limparTexto(this)"
+            onblur="restaurarTexto(this)"
+            required
+            style="padding: 20px"
+          />
           <br/>
           <br />
 
@@ -188,23 +199,27 @@
         //pegando os inputs do formulario
         const data = Object.fromEntries(new FormData(form));
         console.log(data);
-
+        usuario = JSON.parse(localStorage.getItem("user"))
+        id = usuario.id
+        const isAuthenticated = localStorage.getItem('authToken'); 
         try {
           //opções padroes
           const options = {
-            method: "POST",
+            method: "PUT",
             headers: {
               "Content-Type": "application/json",
+              'Authorization': `Bearer ${isAuthenticated}`,
             },
             body: JSON.stringify({
+              image: data.foto,
               email: data.email,
-              password: data.password,
-            }),
-          };
+              userId: id
+              
+          })};
 
           //enviando login para o back
-          // fazendo a requisção
-          const response = await fetch("http://localhost:3000/auth/login", options);
+          // fazendo a requisição
+          const response = await fetch("http://localhost:3000/user/image", options);
           const userData = await response.json();
 
           if(userData.isValid){

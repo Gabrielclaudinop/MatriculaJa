@@ -8,7 +8,7 @@ Content-Type: application/json
 
 {
   "email": "zefelipeofc@gmail.com",
-  "password": 123
+  "password": "senha100%segura123"
 }
 
 ### Criar escola
@@ -36,3 +36,10 @@ Content-Type: application/json
   "aipaipara":"ai"
 }
 
+### Achar usuário por E-mail
+GET {{domain}}/user/
+Content-Type: application/json
+
+{
+  "email": "zefelipeofc@gmail.com"
+}

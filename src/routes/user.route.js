@@ -1,5 +1,5 @@
 /*importações*/
-import express from 'express'
+import express, { json } from 'express'
 import morgan from 'morgan'
 import cors from 'cors'; 
 import 'dotenv/config';
@@ -13,6 +13,7 @@ import { validate } from '../middleware/validate.js';
 import SendMail from '../services/SendMail.js';
 import uploadConfig from '../config/multer.js';
 import Image from '../model/image.js';
+import usuarios from '../model/usuarios.js';
 
 class HTTPError extends Error {
   constructor(message, code) {
@@ -24,9 +25,11 @@ class HTTPError extends Error {
 const router = express.Router()
 
 
-router.get("/", (req, res) => {
-  console.log(req.query.name)
-  res.send("User List")
+router.get("/", async (req, res) => {
+  console.log(req.body.email)
+  let email = req.body.email
+  let user = await Usuarios.readByEmail(email)
+  console.log(user)
 })
 
 router.get("/new", (req, res) => {
@@ -51,11 +54,13 @@ router.post(
   async (req, res) => {
     console.log("\n","Entrou aqui essa bomba","\n")
     try {
-      const userId = req.userId;
-      console.log(req, "Id do cara aqui ó")
-      if (req.file) {
-        const path = `/images/profile/${req.file.filename}`;
- 
+      const userId = req.body.userId;
+      console.log(userId, "Id do cara aqui ó")
+      const path = `/imgs/profile/${userId}.png`;
+      
+      if (path) {
+        const path = `/images/profile/${path}`;
+        
         await Image.create({ userId, path });
 
         res.sendStatus(201);
@@ -79,6 +84,7 @@ router.put(
     try {
       const userId = req.body.userId;
       const path = `/imgs/profile/${userId}.png`;
+
       if (path) {
  
         const image = await Image.update({ userId, path });

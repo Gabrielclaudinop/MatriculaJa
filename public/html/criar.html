@@ -168,7 +168,7 @@
       }
 
       //----------------------------------------------
-      //FUNCAO LOGIN
+      //FUNCAO
       const form = document.querySelector("form");
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -178,11 +178,12 @@
         console.log(data);
         usuario = JSON.parse(localStorage.getItem("user"))
         id = usuario.id
+        console.log("ID DO USUARIO \n", id)
         const isAuthenticated = localStorage.getItem('authToken'); 
         try {
           //opções padroes
           const options = {
-            method: "PUT",
+            method: "POST",
             headers: {
               "Content-Type": "application/json",
               'Authorization': `Bearer ${isAuthenticated}`,

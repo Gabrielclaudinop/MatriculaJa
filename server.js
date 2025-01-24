@@ -113,6 +113,10 @@ app.get("/credenciais", (req,res)=>{
   res.sendFile('credenciais.html', {root:'public/html'})
 })
 
+app.get("/criar", (req,res)=>{
+  res.sendFile("criar.html", {root:"public/html"})
+})
+
 app.get("/cadastro", (req, res) => {
   res.sendFile('cadastro.html', {root:'public/html'})
 })

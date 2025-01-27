@@ -52,25 +52,26 @@ router.post(
   isAuthenticated,
   multer(uploadConfig).single('image'),
   async (req, res) => {
-    console.log("\n","Entrou aqui essa bomba","\n")
+    console.log("\n", "Entrou aqui essa bomba", "\n");
     try {
       const userId = req.body.userId;
-      console.log(userId, "Id do cara aqui ó")
+      console.log(userId, "Id do cara aqui ó");
       const path = `/imgs/profile/${userId}.png`;
       
       if (path) {
-        const path = `/images/profile/${path}`;
+        // Corrected path assignment
+        const finalPath = `/images/profile/${userId}.png`;
         
-        await Image.create({ userId, path });
+        await Image.create({ userId, path: finalPath });
 
         res.sendStatus(201);
       } else { 
-        
-        throw new Error();
+        throw new Error('Path is not defined');
       }
 
     } catch (error) {
-      throw new HTTPError('Unable to create image', 400);
+      console.error('Error creating image:', error);
+      res.status(400).json({ error: 'Unable to create image' });
     }
   }
 );
@@ -84,10 +85,11 @@ router.put(
     try {
       const userId = req.body.userId;
       const path = `/imgs/profile/${userId}.png`;
-
+      console.log(req.file)
+      console.log('\n OI',userId,path, '\n OI')
       if (path) {
- 
-        const image = await Image.update({ userId, path });
+        const finalPath = `/images/profile/${userId}.png`;
+        const image = await Image.update({ userId, path: finalPath });
  
         res.json(image);
         console.log(image)

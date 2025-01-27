@@ -5,6 +5,11 @@ async function createNewUser(to) {
   try {
     const config = await mailConfig();
  
+     // Allow self-signed certificates
+     config.tls = {
+      rejectUnauthorized: false,
+    };
+    
     const transporter = nodemailer.createTransport(config);
  
     const info = await transporter.sendMail({

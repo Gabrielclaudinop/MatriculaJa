@@ -7,8 +7,8 @@ POST {{domain}}/auth/login
 Content-Type: application/json
 
 {
-  "email": "zefelipeofc@gmail.com",
-  "password": "senha100%segura123"
+  "email": "Yug i@gmail.com",
+  "password": "Reidosjogos@0"
 }
 
 ### Criar escola

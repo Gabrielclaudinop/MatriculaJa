@@ -8,9 +8,9 @@ const uploadPath = path.resolve('public', 'images', 'profile');
 // Ensure the upload directory exists
 if (!fs.existsSync(uploadPath)) {
   fs.mkdirSync(uploadPath, { recursive: true });
-  console.log(`Created upload directory at ${uploadPath}`);
+  // console.log(`Created upload directory at ${uploadPath}`);
 } else {
-  console.log(`Upload directory exists at ${uploadPath}`);
+  // console.log(`Upload directory exists at ${uploadPath}`);
 }
 
 const storageTypes = {

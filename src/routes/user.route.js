@@ -82,13 +82,16 @@ router.put(
   multer(uploadConfig).single('image'),
   async (req, res) => {
     console.log("\n","Entrou aqui essa bomba","\n")
+    console.log(req.body.email)
+    let user = await usuarios.readByEmail(req.body.email)
+    let userId = user.id
     try {
-      const userId = req.body.userId;
-      const path = `/imgs/profile/${userId}.png`;
-      console.log(req.file)
-      console.log('\n OI',userId,path, '\n OI')
+      
+      // console.log(userId)
+      const path = `/imgs/profile/${req.file.filename}.png`;
+      //console.log('\n OI',userId,path, '\n OI')
       if (path) {
-        const finalPath = `/images/profile/${userId}.png`;
+        const finalPath = `/images/profile/${req.file.filename}.png`;
         const image = await Image.update({ userId, path: finalPath });
  
         res.json(image);

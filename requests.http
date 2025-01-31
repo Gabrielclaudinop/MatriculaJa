@@ -41,5 +41,5 @@ GET {{domain}}/user/
 Content-Type: application/json
 
 {
-  "email": "zefelipeofc@gmail.com"
+  "email": "Yugi@gmail.com"
 }

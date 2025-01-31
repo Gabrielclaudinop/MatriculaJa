@@ -53,14 +53,18 @@ router.post(
   multer(uploadConfig).single('image'),
   async (req, res) => {
     console.log("\n", "Entrou aqui essa bomba", "\n");
+    console.log("\n", `${req.body.email}`, "\n")
+    const user = await usuarios.readByEmail(req.body.email)
+    const userId = user.id
     try {
-      const userId = req.body.userId;
+      console.log(req.body)
+      console.log(req.file)
       console.log(userId, "Id do cara aqui ó");
-      const path = `/imgs/profile/${userId}.png`;
+      const path = `/imgs/profile/${req.file.filename}.png`;
       
       if (path) {
         // Corrected path assignment
-        const finalPath = `/images/profile/${userId}.png`;
+        const finalPath = `/images/profile/${req.file.filename}.png`;
         
         await Image.create({ userId, path: finalPath });
 
@@ -83,8 +87,8 @@ router.put(
   async (req, res) => {
     console.log("\n","Entrou aqui essa bomba","\n")
     console.log(req.body.email)
-    let user = await usuarios.readByEmail(req.body.email)
-    let userId = user.id
+    const user = await usuarios.readByEmail(req.body.email)
+    const userId = user.id
     try {
       
       // console.log(userId)

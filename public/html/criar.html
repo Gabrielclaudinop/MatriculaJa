@@ -114,12 +114,12 @@
 
 
           <br />
-          <label for="foto"></label>
+          <label for="image"></label>
           <input
             type="file"
-            id="foto"
-            name="foto"
-            placeholder="Foto"
+            id="image"
+            name="image"
+            placeholder="image"
             onfocus="limparTexto(this)"
             onblur="restaurarTexto(this)"
             required
@@ -128,9 +128,9 @@
           <label for="usuario"></label>
           <input
             type="email"
-            id="usuario"
-            name="usuario"
-            placeholder="Usuario"
+            id="email"
+            name="email"
+            placeholder="email"
             onfocus="limparTexto(this)"
             onblur="restaurarTexto(this)"
             required
@@ -173,45 +173,31 @@
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        //pegando os inputs do formulario
-        const data = Object.fromEntries(new FormData(form));
-        console.log(data);
-        usuario = JSON.parse(localStorage.getItem("user"))
-        id = usuario.id
-        console.log("ID DO USUARIO \n", id)
-        const isAuthenticated = localStorage.getItem('authToken'); 
-        try {
-          //opções padroes
-          const options = {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              'Authorization': `Bearer ${isAuthenticated}`,
-            },
-            body: JSON.stringify({
-              image: data.foto,
-              email: data.email,
-              userId: id
-              
-          })};
+        const formData = new FormData(form); // Use FormData para capturar o arquivo corretamente
 
-          //enviando login para o back
-          // fazendo a requisição
-          const response = await fetch("http://localhost:3000/user/image", options);
-          const userData = await response.json();
+  usuario = JSON.parse(localStorage.getItem("user"));
+  id = usuario.id;
 
-          if(userData.isValid){
-            //armazenamento do navegador
-            localStorage.setItem("authToken", userData.token);
-            localStorage.setItem("user", JSON.stringify(userData.User));
-            window.location.href = "./home"
-          }else{
-            alert(userData.error)
-          }
-        } catch (error) {
-          console.log(error);
-          alert("algo deu errado")
-        }
+  const isAuthenticated = localStorage.getItem("authToken");
+
+  try {
+    const options = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${isAuthenticated}`, // Remova 'Content-Type'
+      },
+      body: formData, // Envie o FormData diretamente
+    };
+   
+    const response = await fetch("http://localhost:3000/user/image", options);
+    const userData = await response.json();
+
+    console.log(userData);
+    alert("Imagem enviada com sucesso!");
+  } catch (error) {
+    console.error(error);
+    alert("Algo deu errado");
+  }
       });
 
     

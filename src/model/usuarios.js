@@ -28,4 +28,13 @@ async function RegisterUser(username, email, password) {
 
   return usuario;
 }
-export default { readByEmail, RegisterUser };
+
+async function readById(id) {
+  return await prisma.usuario.findUnique({
+    where: {
+      id: parseInt(id)
+    }
+  })
+}
+
+export default { readByEmail, RegisterUser, readById };

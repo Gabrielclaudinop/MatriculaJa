@@ -15,13 +15,13 @@
       rel="stylesheet"
     />
 
-    <link href="../css/av2_bootstrap.min.css" rel="stylesheet"/>
+    <link href="../css/av2_bootstrap.min.css" rel="stylesheet" />
 
-    <link href="../css/av1_bootstrap-icons.css" rel="stylesheet"/>
+    <link href="../css/av1_bootstrap-icons.css" rel="stylesheet" />
 
-    <link href="../css/av2_magnific-popup.css" rel="stylesheet"/>
+    <link href="../css/av2_magnific-popup.css" rel="stylesheet" />
 
-    <link href="../css/av1_tooplate-waso-strategy.css" rel="stylesheet"/>
+    <link href="../css/av1_tooplate-waso-strategy.css" rel="stylesheet" />
     <style>
       html,
       body {
@@ -112,7 +112,6 @@
           <h2 style="text-align: center">Troque somente a foto</h2>
           <br />
 
-
           <br />
           <label for="image"></label>
           <input
@@ -136,7 +135,7 @@
             required
             style="padding: 20px"
           />
-          <br/>
+          <br />
           <br />
 
           <input
@@ -144,7 +143,6 @@
             value="Entrar"
             style="padding: 20px; font-size: 15px"
           />
-          
         </form>
       </div>
     </div>
@@ -175,32 +173,33 @@
 
         const formData = new FormData(form); // Use FormData para capturar o arquivo corretamente
 
-  usuario = JSON.parse(localStorage.getItem("user"));
-  id = usuario.id;
+        usuario = JSON.parse(localStorage.getItem("user"));
+        id = usuario.id;
 
-  const isAuthenticated = localStorage.getItem("authToken");
+        const isAuthenticated = localStorage.getItem("authToken");
 
-  try {
-    const options = {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${isAuthenticated}`, // Remova 'Content-Type'
-      },
-      body: formData, // Envie o FormData diretamente
-    };
-   
-    const response = await fetch("http://localhost:3000/user/image", options);
-    const userData = await response.json();
+        try {
+          const options = {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${isAuthenticated}`, // Remova 'Content-Type'
+            },
+            body: formData, // Envie o FormData diretamente
+          };
 
-    console.log(userData);
-    alert("Imagem enviada com sucesso!");
-  } catch (error) {
-    console.error(error);
-    alert("Algo deu errado");
-  }
+          const response = await fetch(
+            "http://localhost:3000/user/image",
+            options
+          );
+          const data = await response.json();
+
+          console.log(data);
+          alert("Imagem enviada com sucesso!");
+        } catch (error) {
+          console.error(error);
+          alert("Algo deu errado");
+        }
       });
-
-    
     </script>
   </body>
   <!--CABEÇALHO NAO MEXA-->

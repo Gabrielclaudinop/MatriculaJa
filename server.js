@@ -3,7 +3,6 @@ import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'; 
 import 'dotenv/config';
-import multer from 'multer';
 
 import { PrismaClient } from "@prisma/client";
 import Usuarios from './src/model/usuarios.js'
@@ -11,7 +10,6 @@ import { isAuthenticated } from './src/middleware/auth.js';
 import { z } from 'zod';
 import { validate } from './src/middleware/validate.js';
 import SendMail from './src/services/SendMail.js';
-import uploadConfig from './src/config/multer.js';
 import Image from './src/model/image.js';
 
 

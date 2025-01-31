@@ -11,7 +11,7 @@ import { isAuthenticated } from '../middleware/auth.js';
 import { z } from 'zod';
 import { validate } from '../middleware/validate.js';
 import SendMail from '../services/SendMail.js';
-import uploadConfig from '../config/multer.js';
+import uploadConfig from '../middleware/multer.js';
 import Image from '../model/image.js';
 import usuarios from '../model/usuarios.js';
 
@@ -54,19 +54,21 @@ router.post(
   async (req, res) => {
     console.log("\n", "Entrou aqui essa bomba", "\n");
     console.log("\n", `${req.body.email}`, "\n")
-    const user = await usuarios.readByEmail(req.body.email)
-    const userId = user.id
+
+    //achando usuario
+    const user = await usuarios.readByEmail(req.userId)
+
     try {
       console.log(req.body)
       console.log(req.file)
-      console.log(userId, "Id do cara aqui ó");
+      console.log(user.id, "Id do cara aqui ó");
       const path = `/imgs/profile/${req.file.filename}.png`;
       
       if (path) {
         // Corrected path assignment
         const finalPath = `/images/profile/${req.file.filename}.png`;
         
-        await Image.create({ userId, path: finalPath });
+        await Image.create({ userId: user.id, path: finalPath });
 
         res.sendStatus(201);
       } else { 
@@ -86,9 +88,10 @@ router.put(
   multer(uploadConfig).single('image'),
   async (req, res) => {
     console.log("\n","Entrou aqui essa bomba","\n")
-    console.log(req.body.email)
-    const user = await usuarios.readByEmail(req.body.email)
-    const userId = user.id
+    console.log(req.userId)
+    
+    const user = await usuarios.readById(user.id)
+
     try {
       
       // console.log(userId)
@@ -96,7 +99,7 @@ router.put(
       //console.log('\n OI',userId,path, '\n OI')
       if (path) {
         const finalPath = `/images/profile/${req.file.filename}.png`;
-        const image = await Image.update({ userId, path: finalPath });
+        const image = await Image.update({ userId: user.id, path: finalPath });
  
         res.json(image);
         console.log(image)

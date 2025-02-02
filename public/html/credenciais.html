@@ -109,7 +109,7 @@
     <div class="div-maior">
       <div class="div-menor div-menor-direita" style="margin-top: -60px">
         <form>
-          <h2 style="text-align: center">Troque somente a foto</h2>
+          <h2 style="text-align: center">Troque sua foto de perfil</h2>
           <br />
 
 
@@ -123,7 +123,7 @@
           />
           <br/>
           <br />
-
+          
           <input
             type="submit"
             value="Entrar"
@@ -156,10 +156,10 @@
       //FUNCAO MUDAR FOTO
       const form = document.querySelector("form");
       form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+      e.preventDefault();
 
   const formData = new FormData(form); // Use FormData para capturar o arquivo corretamente
-
+  
   usuario = JSON.parse(localStorage.getItem("user"));
   id = usuario.id;
 
@@ -173,7 +173,7 @@
       },
       body: formData, // Envie o FormData diretamente
     };
-   
+   console.log(options)
     const response = await fetch("http://localhost:3000/user/image", options);
     const userData = await response.json();
 

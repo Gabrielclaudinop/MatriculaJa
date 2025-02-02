@@ -52,7 +52,7 @@ router.put(
   multer(uploadConfig).single("image"),
   async (req, res) => {
     const user = await usuarios.readById(req.userId);
-
+    console.log('\a REQUISIÇÃOOOOOOO',req.file,'\a REQUISIÇÃOOOOO')
     try {
       // console.log(userId)
       const path = `/images/profile/${req.file.filename}`;

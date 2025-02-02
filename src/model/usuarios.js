@@ -8,7 +8,7 @@ async function readByEmail(email) {
   });
 }
 
-async function RegisterUser(username, email, password) {
+async function RegisterUser(username, email, password,image) {
   console.log(typeof(password))
   const hash = await bcrypt.hash(password, 10);
   console.log(username, email, password);
@@ -17,6 +17,7 @@ async function RegisterUser(username, email, password) {
       nome: username,
       email: email,
       senha: hash,
+      image: image
     },
   });
 

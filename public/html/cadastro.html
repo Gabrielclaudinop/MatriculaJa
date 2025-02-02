@@ -111,22 +111,41 @@
 
     <div class="div-menor div-menor-direita" style="margin-top:-60px;">
     <div style="width:400px; height:600px">  
-    <form method="post" action="/cadastro" >
-      <h2 style="text-align:center">CADASTRE-SE</h2> <br>
+    <form>
+      <h2 style="text-align:center">Cadastre-se</h2> <br>
 
       <label for="username" ></label>
-      <input type="text" id="username" name="username" placeholder="Nome" onfocus="limparTexto(this)" onblur="restaurarTexto(this)" required>
+      <input type="text" id="username" name="username" placeholder="Nome" 
+      onfocus="limparTexto(this)" 
+      onblur="restaurarTexto(this)" 
+      required>
       <br>
 
       <label for="email"></label>
-      <input type="email" id="email" name="email" placeholder="Email" onfocus="limparTexto(this)" onblur="restaurarTexto(this)" required>
+      <input type="email" id="email" name="email" placeholder="Email" 
+      onfocus="limparTexto(this)" 
+      onblur="restaurarTexto(this)" 
+      required>
       <br>
 
       <label for="password"></label>
-      <input type="password" id="password" name="password" placeholder="Senha" onfocus="limparTexto(this)" onblur="restaurarTexto(this)" required>
-      <br> <br>
+      <input type="password" id="password" name="password" placeholder="Senha" 
+      onfocus="limparTexto(this)" 
+      onblur="restaurarTexto(this)" 
+      required>
+      
+      <br>
 
+      <label for="foto de perfil"></label>
+      <input type="file" id="image" name="image" placeholder="Foto de perfil" 
+      onfocus="limparTexto(this)" 
+      onblur="restaurarTexto(this)" 
+      required>
+      
+      <br>  <br> <br>
+      
       <input type="submit" value="Cadastrar">
+      <br>
       <h6 style="text-align:center; font-size: 12px;">Já possui conta? Faça <a href="login">login</a>.</h6>
     </form>
     </div>
@@ -149,6 +168,33 @@
       window.location.href = "../index.html";
       return false;
     }
+
+    const form = document.querySelector("form");
+      form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(form); // Use FormData para capturar o arquivo corretamente
+
+
+  try {
+    const options = {
+      method: "POST",
+      body: formData, // Envie o FormData diretamente
+    };
+   
+    console.log(options)
+
+    const response = await fetch("http://localhost:3000/cadastro", options);
+    const userData = await response.json();
+    console.log(userData);
+    alert("Cadastramento feito com sucesso");
+  } catch (error) {
+    console.error(error);
+    alert("Algo deu errado");
+  }
+});
+
+
   </script>
 
 </body>

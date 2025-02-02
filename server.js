@@ -3,15 +3,15 @@ import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'; 
 import 'dotenv/config';
-
 import { PrismaClient } from "@prisma/client";
+import multer from "multer";
+import { z } from 'zod';
 import Usuarios from './src/model/usuarios.js'
 import { isAuthenticated } from './src/middleware/auth.js';
-import { z } from 'zod';
 import { validate } from './src/middleware/validate.js';
 import SendMail from './src/services/SendMail.js';
 import Image from './src/model/image.js';
-
+import uploadConfig from "./src/middleware/multer.js";
 
 /* CONST, definição de variáveis constantes */
 const app = express();
@@ -42,6 +42,18 @@ app.use('/schools', escolasRoute)
 app.use('/turmas', turmasRoute)
 app.use('/auth', authRoute)
 app.use('/user', userRoute)
+
+
+/*function parseFormData(req, res, next) {
+  if (!req.is('multipart/form-data')) return next();
+
+  const multerMiddleware = multer().none(); // Processa apenas os campos de texto
+  multerMiddleware(req, res, (err) => {
+    if (err) return res.status(400).json({ error: err.message });
+    next();
+  });
+}*/
+
 // Rota de contato para receber os dados do formulário
 app.post('/contato', validate(
   z.object({
@@ -53,7 +65,6 @@ app.post('/contato', validate(
   })
 ), async (req, res) => {
   const {email,tipo,message} = req.body;
-  console.log(req.body)
   
   try {
     const contato = await prisma.Contato.create({
@@ -61,6 +72,8 @@ app.post('/contato', validate(
         email,
         tipo,
       message}});
+
+      SendMail.sendContactEmail(email, tipo, message);
 
     res.status(200).json({ message: 'Mensagem enviada e salva com sucesso!' });
   } catch (error) {
@@ -70,7 +83,8 @@ app.post('/contato', validate(
 });
 
 //Rota para efetuação de cadastro
-app.post('/cadastro', validate(
+app.post('/cadastro', multer(uploadConfig).single("image"),
+  validate(
   z.object({
     body: z.object({
       username: z.string(),
@@ -80,19 +94,25 @@ app.post('/cadastro', validate(
       }),
     }),
   })
-),async (req, res) => {
-  const {username,email,password} = req.body;
-  console.log(req.body)
-  try {
-    // Salvando no banco de dados com Prisma
-    const usuario = await Usuarios.RegisterUser(username,email,password)
-    await SendMail.createNewUser(email)
-    res.status(200).json({ message: 'Cadastro efetuado com sucesso!',usuario});
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Ocorreu um erro ao solicitar cadastro.' });
+),
+async (req, res) => {
+    const {username,email,password} = req.body;
+    const image = `/images/profile/${req.file.filename}`
+    console.log('\a',req.body.username,'Tipo do conteúdo da requisição')
+    console.log('\a',req,'Print da requisição')
+    
+    try {
+      // Salvando no banco de dados com Prisma
+      const usuario = await Usuarios.RegisterUser(username,email,password,image)
+      await SendMail.createNewUser(email)
+      res.status(200).json({ message: 'Cadastro efetuado com sucesso!',usuario});
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Ocorreu um erro ao solicitar cadastro.' });
+    }
+   res.status(200).json({ message: 'Entrou no final da requisição'});
   }
-});
+);
 
 //rendering pages
 app.get("/home", (req, res) => {

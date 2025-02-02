@@ -1,3 +1,11 @@
+let  userHTMLMenu = ""
+if (localStorage.getItem('authToken')){
+    userHTMLMenu = `<li class="nav-item" id="usuario" >
+            <button class="nav-link" aria-controls="username-desc" onclick=user_menu() aria-label="Help about username" type="button" aria-expanded="false" style="border: none; background: none;">
+              Usuario
+            </button></li>`
+}
+
 const header = `
 <div class="container">
 
@@ -38,10 +46,7 @@ const header = `
             </a>
           </li>
           <!-- Botão do usuário -->
-          <li class="nav-item" id="usuario" >
-            <button class="nav-link" aria-controls="username-desc" onclick=user_menu() aria-label="Help about username" type="button" aria-expanded="false" style="border: none; background: none;">
-              Usuario
-            </button></li>
+          ${userHTMLMenu}
           
 
 
@@ -67,8 +72,8 @@ function user_menu() {
   const bottom = `<div id="bottom" onclick="exitMenu()" style="z-index: 9998; position:fixed; top:0px; right0px; width:100%; height:100%; background-color: black; opacity:40%;"  ></div>`
   const menu = `
     <div id="menu" style=" display: ruby; z-index: 9999; position: fixed; top: 0px; right: 0px; background: white; border: 1px solid #ccc; padding: 10px;
-      box-shadow: 0px 4px 6px rgba(0,0,0,0.1); border-radius: 5px; height:100%; width: 25%;">
-      <img src="${user.image}" style="height: 50px; width: 50px; border-radius: 50%; margin-bottom: 10px;"> <h1 style="font-size: 28px; margin-bottom: 10px;">Olá, \&nbsp ${user.nome}</h1>
+      box-shadow: 0px 4px 6px rgba(0,0,0,0.1); border-radius: 5px; height:100%; width: 26.5%;">
+      <img src="${user.image}" style="height: 9%; width: 16.5%; border-radius: 50%; margin-bottom: 10px;"> <h1 style="font-size: 28px; margin-bottom: 10px;">Olá, \&nbsp ${user.nome}</h1>
       <ul style="list-style: none; padding: 0;">
         <li><a href="credenciais">Alterar foto de perfil</a></li>
         <li><a href="alterar_senha" onclick="updateProfile()">Alterar senha</a></li>

@@ -33,17 +33,16 @@ const header = `
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="http://localhost:3000/#">
+            <a class="nav-link" href="http://localhost:3000/home">
               <small class="small-title"><strong class="text-purple"></strong>FAQ</small> 
             </a>
           </li>
-
-          <!-- Botão de Logout -->
-          <li class="nav-item">
-            <button class="nav-link" onclick="logout()" style="border: none; background: none;">
-              <small class="small-title"><strong class="text-purple"></strong>LOGOUT</small>
-            </button>
-          </li>
+          <!-- Botão do usuário -->
+          <li class="nav-item" id="usuario" >
+            <button class="nav-link" aria-controls="username-desc" onclick=user_menu() aria-label="Help about username" type="button" aria-expanded="false" style="border: none; background: none;">
+              Usuario
+            </button></li>
+          
 
 
         </ul>
@@ -51,14 +50,53 @@ const header = `
         </div>`
 
 
+
 document.addEventListener('DOMContentLoaded', (event) => {
     const homepage = document.querySelector('.navbar-component-js');
     homepage.insertAdjacentHTML('afterbegin', header);
 });
 
+function exitMenu() {
+  document.getElementById("menu").remove();
+  document.getElementById("bottom").remove();
+};
+
+function user_menu() {
+  const user = JSON.parse(localStorage.getItem('user'))
+
+  const bottom = `<div id="bottom" onclick="exitMenu()" style="z-index: 9998; position:fixed; top:0px; right0px; width:100%; height:100%; background-color: black; opacity:40%;"  ></div>`
+  const menu = `
+    <div id="menu" style=" display: ruby; z-index: 9999; position: fixed; top: 0px; right: 0px; background: white; border: 1px solid #ccc; padding: 10px;
+      box-shadow: 0px 4px 6px rgba(0,0,0,0.1); border-radius: 5px; height:100%; width: 25%;">
+      <img src="${user.image}" style="height: 50px; width: 50px; border-radius: 50%; margin-bottom: 10px;"> <h1 style="font-size: 28px; margin-bottom: 10px;">Olá, \&nbsp ${user.nome}</h1>
+      <ul style="list-style: none; padding: 0;">
+        <li><a href="credenciais">Alterar foto de perfil</a></li>
+        <li><a href="alterar_senha" onclick="updateProfile()">Alterar senha</a></li>
+        <!-- Botão de Logout -->
+          <li class="nav-item">
+            <button class="nav-link" onclick="logout()" style="border: none; background: none;">
+              <small class="small-title" style="color:red;"><strong class="text-purple"></strong>LOGOUT</small>
+            </button>
+          </li>
+      </ul>
+    </div>
+  `;
+
+  console.log("Click funcionou");
+
+
+  
+  // Adiciona o menu diretamente ao body para garantir que ele fique sobre todos os elementos
+  document.body.insertAdjacentHTML("beforeend", bottom);
+  document.body.insertAdjacentHTML("beforeend", menu);
+}
+
+
+
+
 function logout(){
   localStorage.removeItem('authToken')
   localStorage.removeItem('user')
 
-  window.location.href= "./login.html"
+  window.location.href= "./login"
 }

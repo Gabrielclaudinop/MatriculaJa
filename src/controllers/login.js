@@ -20,7 +20,7 @@ export async function login(req, res) {
         if(await bcrypt.compare(password, user.senha)){
             //lembrar de criar .env
             //------- IMPORTANTE --------
-            const token = jwt.sign({id: user.id}, process.env.JWT_SECRET); //token de acesso
+            const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET); //token de acesso
 
             //separando senha das informações de usuário
             //------- IMPORTANTE --------

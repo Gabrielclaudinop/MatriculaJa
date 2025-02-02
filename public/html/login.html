@@ -204,7 +204,8 @@
             //armazenamento do navegador
             localStorage.setItem("authToken", userData.token);
             localStorage.setItem("user", JSON.stringify(userData.User));
-            window.location.href = "./home"
+            console.log(userData.User);
+            window.location.href = "/home"
           }else{
             alert(userData.error)
           }

@@ -44,16 +44,9 @@ model Contato {
 model Usuario {
   id          Int       @id @default(autoincrement())
   nome        String
+  image       String
   email       String       @unique
   senha    String
-  image Image?
-}
-
-model Image {
-  id     String @id @default(uuid())
-  path   String
-  user   Usuario   @relation(fields: [userId], references: [id])
-  userId Int @unique
 }
 
 model TurmaEscola {

@@ -20,7 +20,8 @@ async function main() {
     await prisma.usuario.create({
       data: {
         ...rest,
-        senha: hashedPasswd
+        senha: hashedPasswd,
+        image: seed.imagem
       }
     })
   }

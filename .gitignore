@@ -4,3 +4,4 @@ node_modules
 package-lock.json
 migrations
 dev.db*
+public/images/profile/*

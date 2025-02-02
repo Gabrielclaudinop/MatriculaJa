@@ -4,12 +4,6 @@ async function readByEmail(email) {
   return await prisma.usuario.findUnique({
     where: {
       email: email
-    },include: {
-      image: {
-        select: {
-          path: true,
-        },
-      },
     },
   });
 }

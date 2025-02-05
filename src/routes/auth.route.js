@@ -20,12 +20,6 @@ router.post(
   login
 );
 
-/*PARA SOMENTE REGISTRO
-  .regex(/^(?=.*\d)(?=.*[^\w\s]).*$/, {
-          message: "Sua senha deve ter pelo ao menos um símbolo e número, além de ter mais de 5 carácteres.",
-        }),
-  */
-
 //ROTA: /auth/validate-auth
 router.post("/validate-auth", isAuthenticated, (req, res) => {
   res.status(200).json({ message: "OK", isValid: true });

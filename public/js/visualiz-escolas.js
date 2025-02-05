@@ -53,7 +53,6 @@ async function Filter(filter) {
     const data = await API.read(`/schools/`); // Faz a requisição passando os filtros na query string
     if(!filter) return data
     let filteredData
-    //console.log(data)
     if(filter?.name && filter?.turn){
       filteredData = data.filter((el) => el.serie?.includes(filter.name) && el.turno?.includes(filter.turn))
     }

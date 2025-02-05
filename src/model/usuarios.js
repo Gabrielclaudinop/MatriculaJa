@@ -9,7 +9,6 @@ async function readByEmail(email) {
 }
 
 async function RegisterUser(username, email, password,image) {
-  console.log(typeof(password))
   const hash = await bcrypt.hash(password, 10);
   console.log(username, email, password);
   const usuario = await prisma.usuario.create({
@@ -32,4 +31,16 @@ async function readById(id) {
   })
 }
 
-export default { readByEmail, RegisterUser, readById };
+async function changePassword(id, newPassword) {
+  const hash = await bcrypt.hash(newPassword, 10);
+  return await prisma.usuario.update({
+    where: {
+      id: parseInt(id)
+    },
+    data: {
+      senha: hash
+    }
+  })
+}
+
+export default { readByEmail, RegisterUser, readById, changePassword};

@@ -19,7 +19,6 @@ async function createNewUser(to) {
       text: `Conta criada com sucesso.\n\nAcesse o aplicativo para gerenciar sua conta.`,
       html: `<h1>Conta criada com sucesso.</h1><p>Acesse o aplicativo para gerenciar sua conta.</p>`,
     });
-    console.log("Entrou no createNewUser")
     if (process.env.NODE_ENV === 'development') {
       console.log(`Send email: ${nodemailer.getTestMessageUrl(info)}`);
     }
@@ -45,7 +44,6 @@ async function sendContactEmail(from,type,message) {
       text: `${type}.\n\n${message}.`,
       html: `<h1>${type}.</h1><p>${message}.</p>`,
     });
-    console.log("Entrou no createNewUser")
     if (process.env.NODE_ENV === 'development') {
       console.log(`Send email: ${nodemailer.getTestMessageUrl(info)}`);
     }
@@ -53,5 +51,31 @@ async function sendContactEmail(from,type,message) {
     throw new Error(err);
   }
 }
-export default { createNewUser, sendContactEmail };
+
+async function emailCode(to,code) {
+  try {
+    const config = await mailConfig();
+ 
+     // Allow self-signed certificates
+     config.tls = {
+      rejectUnauthorized: false,
+    };
+    
+    const transporter = nodemailer.createTransport(config);
+ 
+    const info = await transporter.sendMail({
+      from: "matrículajá@gmail.com",
+      to: to,
+      subject: `Código de verificação para troca de senha`,
+      text: `Código de verificação.\n\n Esse é um código de verificação para você ${code}.`,
+      html: `<h1>Código de verificação.</h1><p>${code}.</p>`,
+    });
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`Send email: ${nodemailer.getTestMessageUrl(info)}`);
+    }
+  } catch (err) {
+    throw new Error(err);
+  }
+}
+export default { createNewUser, sendContactEmail, emailCode };
  

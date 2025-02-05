@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Matricula-já - Troque somente a foto</title>
+    <title>Matricula-já - Login</title>
 
     <!-- CSS FILES -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -109,31 +109,19 @@
     <div class="div-maior">
       <div class="div-menor div-menor-direita" style="margin-top: -60px">
         <form>
-          <h2 style="text-align: center">Troque somente a foto</h2>
+          <h2 style="text-align: center">Troque sua senha</h2>
           <br />
 
-          <br />
-          <label for="image"></label>
+          <label for="password"></label>
           <input
-            type="file"
-            id="image"
-            name="image"
-            placeholder="image"
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Senha"
             onfocus="limparTexto(this)"
             onblur="restaurarTexto(this)"
             required
-            style="padding: 20px"
-          />
-          <label for="usuario"></label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="email"
-            onfocus="limparTexto(this)"
-            onblur="restaurarTexto(this)"
-            required
-            style="padding: 20px"
+            style="padding: 20px; font-size: 15px"
           />
           <br />
           <br />
@@ -166,40 +154,59 @@
       }
 
       //----------------------------------------------
-      //FUNCAO
+      //FUNCAO LOGIN
       const form = document.querySelector("form");
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const formData = new FormData(form); // Use FormData para capturar o arquivo corretamente
-
+        //pegando os inputs do formulario
+        const data = Object.fromEntries(new FormData(form));
+        console.log(`Senha sendo enviada:data`);
         usuario = JSON.parse(localStorage.getItem("user"));
         id = usuario.id;
 
         const isAuthenticated = localStorage.getItem("authToken");
-
         try {
+          //opções padroes
           const options = {
             method: "POST",
             headers: {
-              Authorization: `Bearer ${isAuthenticated}`, // Remova 'Content-Type'
+                Authorization: `Bearer ${isAuthenticated}`,
+                "Content-Type": "application/json",
             },
-            body: formData, // Envie o FormData diretamente
+            body: JSON.stringify({
+            userId: id,
+            newPassword: data.password,
+            }),
           };
-
-          const response = await fetch(
-            "http://localhost:3000/user/image",
-            options
-          );
-          const data = await response.json();
-
-          console.log(data);
-          alert("Imagem enviada com sucesso!");
+          
+          // fazendo a requisção
+          const response = await fetch("http://localhost:3000/user/emailCode", options);
+          const userData = await response.json();
+          if (!userData.error){
+            const userCode = window.prompt("Ponha aqui, o seu código de confirmação")
+            const options = {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${isAuthenticated}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+            userId: id,
+            newPassword: data.password,
+            code: userCode
+            }),
+          };
+            const response = await fetch("http://localhost:3000/user/password", options);
+            const userData = await response.json();
+          }
         } catch (error) {
-          console.error(error);
-          alert("Algo deu errado");
+          console.log(error);
+          alert("algo deu errado")
         }
       });
+
+      
     </script>
   </body>
   <!--CABEÇALHO NAO MEXA-->

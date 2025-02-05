@@ -89,7 +89,7 @@ app.post('/cadastro', multer(uploadConfig).single("image"),
     body: z.object({
       username: z.string(),
       email: z.string(),
-      password: z.string().regex(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$/, {
+      password: z.string().regex(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^\w\s]).{5,}$/, {
         message: "Sua senha deve ter pelo ao menos um símbolo e número, além de ter mais de 5 carácteres.",
       }),
     }),
@@ -98,8 +98,6 @@ app.post('/cadastro', multer(uploadConfig).single("image"),
 async (req, res) => {
     const {username,email,password} = req.body;
     const image = `/images/profile/${req.file.filename}`
-    console.log('\a',req.body.username,'Tipo do conteúdo da requisição')
-    console.log('\a',req,'Print da requisição')
     
     try {
       // Salvando no banco de dados com Prisma
@@ -143,7 +141,10 @@ app.get("/escola", (req, res) => {
   const id = req.params.id
   res.sendFile('info-escola.html', {root:'public/html'})
 })
-
+app.get("/alterarSenha", (req, res) => {
+  const id = req.params.id
+  res.sendFile('alterarSenha.html', {root:'public/html'})
+})
 //app.use(( error, req, res, next ) => {
 //	const statusCode = error.statusCode || 500;
  // const message = error.message || 'Internal Server Error';

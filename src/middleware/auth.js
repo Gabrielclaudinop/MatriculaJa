@@ -14,7 +14,6 @@ function isAuthenticated(req, res, next) {
     req.userId = userId;
     next();
   } catch (error) {
-    console.log(req.headers, "Cabeçalho da requisição")
     res.status(401).send({ auth: false, message: 'Token invalid.' });
   }
 }

@@ -182,7 +182,6 @@
       body: formData, // Envie o FormData diretamente
     };
    
-    console.log(options)
 
     const response = await fetch("http://localhost:3000/cadastro", options);
     const userData = await response.json();

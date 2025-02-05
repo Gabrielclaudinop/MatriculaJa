@@ -1,9 +1,17 @@
 let  userHTMLMenu = ""
+let login = ""
 if (localStorage.getItem('authToken')){
     userHTMLMenu = `<li class="nav-item" id="usuario" >
             <button class="nav-link" aria-controls="username-desc" onclick=user_menu() aria-label="Help about username" type="button" aria-expanded="false" style="border: none; background: none;">
               Usuario
             </button></li>`
+} else{
+  login = `<!--Novo-->
+  <li class="nav-item">
+    <a class="nav-link" href="http://localhost:3000/login">
+      <small class="small-title"><strong class="text-purple"></strong>LOGIN</small>
+    </a>
+  </li>`
 }
 
 const header = `
@@ -33,12 +41,7 @@ const header = `
             </a>
           </li>
 
-          <!--Novo-->
-          <li class="nav-item">
-            <a class="nav-link" href="http://localhost:3000/login">
-              <small class="small-title"><strong class="text-purple"></strong>LOGIN</small>
-            </a>
-          </li>
+          ${login}
 
           <li class="nav-item">
             <a class="nav-link" href="http://localhost:3000/home">
@@ -76,7 +79,7 @@ function user_menu() {
       <img src="${user.image}" style="height: 9%; width: 16.5%; border-radius: 50%; margin-bottom: 10px;"> <h1 style="font-size: 28px; margin-bottom: 10px;">Olá, \&nbsp ${user.nome}</h1>
       <ul style="list-style: none; padding: 0;">
         <li><a href="credenciais">Alterar foto de perfil</a></li>
-        <li><a href="alterar_senha" onclick="updateProfile()">Alterar senha</a></li>
+        <li><a href="alterarSenha" onclick="updateProfile()">Alterar senha</a></li>
         <!-- Botão de Logout -->
           <li class="nav-item">
             <button class="nav-link" onclick="logout()" style="border: none; background: none;">
@@ -86,8 +89,6 @@ function user_menu() {
       </ul>
     </div>
   `;
-
-  console.log("Click funcionou");
 
 
   

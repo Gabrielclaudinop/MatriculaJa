@@ -87,7 +87,7 @@ router.post("/create", isAuthenticated,
 ), async (req,res) => {
   try {
     Escolas.create(req.body)
-    
+    res.sendStatus(201)
   } catch(error){
     res.status(400).json({message: error.message})
   }

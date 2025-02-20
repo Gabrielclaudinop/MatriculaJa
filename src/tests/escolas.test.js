@@ -1,7 +1,7 @@
 import { describe, it, before } from 'node:test';
 import assert from 'node:assert';
 import request from 'supertest';
-import app from '../../server.js'
+import app from '../server.js'
 import { response } from 'express';
  
 const newSchool = {

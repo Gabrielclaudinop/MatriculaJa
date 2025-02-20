@@ -7,8 +7,10 @@
     "dev": "nodemon server.js",
     "start": "node server.js",
     "db:drop": "del src\\database\\db.sqlite",
+    "pWrightLogin": "npx playwright test tests/login.spec.js --ui",
+    "pWrightDenuncia": "npx playwright test tests/denuncia.spec.js --ui",
     "testSchools": "node --test src/tests/escolas.test.js",
-    "testUsers": "node --test src/tests/usuarios.test.js"
+    "testContato": "node --test src/tests/Contato.test.js"
   },
   "prisma": {
     "seed": "node prisma/seed.js"
@@ -31,13 +33,14 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.16",
-    "playwright": "^1.50.1",
     "prisma": "^5.20.0",
     "sqlite-async": "^1.2.0",
     "uuid": "^10.0.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@playwright/test": "^1.50.1",
+    "@types/node": "^22.13.4",
     "nodemon": "^3.1.0",
     "supertest": "^7.0.0"
   }

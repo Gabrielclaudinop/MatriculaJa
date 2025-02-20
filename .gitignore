@@ -5,3 +5,9 @@ package-lock.json
 migrations
 dev.db*
 public/images/profile/*
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

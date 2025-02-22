@@ -8,10 +8,11 @@ import FormData from 'form-data';
 
 //Adicionar testes para cadastro e e GET de usuário
 
+let createdContato;
 
 const newContato = {
     email: "Canetaazul@gmail.com",
-    tipo: "Denuncia",
+    tipo: "",
     message: "Teste"
 };
 
@@ -29,11 +30,26 @@ describe('Matrículajá', () => {
         assert.ok(response.body.token);
     });*/
     describe("Contatos", () => {
-    it("Should send a contact email", async () => {
-        const response = await request(app).post('/contato').send(form);
+    it('Should send a "Denuncia" contact email', async () => {
+        newContato.tipo = "denuncia";
+        const response = await request(app).post('/contato').send(newContato);
         assert.strictEqual(response.status, 200);
-        createdSchool = response.body;
-        console.log(createdSchool)
+        createdContato = response.body;
+        
+    })
+    it('Should send a "error" contact email', async () => {
+        newContato.tipo = "erro";
+        const response = await request(app).post('/contato').send(newContato);
+        assert.strictEqual(response.status, 200);
+        createdContato = response.body;
+        
+    })
+    it('Should send a "duvida" contact email', async () => {
+        newContato.tipo = "duvida";
+        const response = await request(app).post('/contato').send(newContato);
+        assert.strictEqual(response.status, 200);
+        createdContato = response.body;
+        
     })
   
   ;})

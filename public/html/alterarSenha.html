@@ -161,7 +161,7 @@
 
         //pegando os inputs do formulario
         const data = Object.fromEntries(new FormData(form));
-        console.log(`Senha sendo enviada:data`);
+        console.log(`Senha sendo enviada: ${data}`);
         usuario = JSON.parse(localStorage.getItem("user"));
         id = usuario.id;
 

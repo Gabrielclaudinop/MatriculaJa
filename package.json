@@ -10,7 +10,8 @@
     "pWrightLogin": "npx playwright test tests/login.spec.js --ui",
     "pWrightDenuncia": "npx playwright test tests/denuncia.spec.js --ui",
     "testSchools": "node --test src/tests/escolas.test.js",
-    "testContato": "node --test src/tests/Contato.test.js"
+    "testContact": "node --test src/tests/Contato.test.js",
+    "testUser": "node --test src/tests/user.test.js"
   },
   "prisma": {
     "seed": "node prisma/seed.js"

@@ -63,13 +63,14 @@ router.put(
 );
 
 router.post("/emailCode", isAuthenticated, async (req,res)=>{
+  console.log(`${req.userId} requisição do emailcode`)
   const user = await usuarios.readById(req.userId);
   try{
     const code = randomBytes(4).toString('hex')
     process.env.SERVER_CODE = code;
     console.log(`${process.env.SERVER_CODE}`)
     const mail = await SendMail.emailCode(user.email,code);
-    res.status(200).json(code);
+    res.status(200).json({code: code});
   } catch (error) {
     console.log(error);
     res.status(400).json({ error: "Unable to send email" });

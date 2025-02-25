@@ -6,4 +6,5 @@ test('test', async ({ page }) => {
   await page.getByPlaceholder('Email').fill('Canetaazul@gmail.com');
   await page.getByPlaceholder('Senha').click();
   await page.getByPlaceholder('Senha').fill('azulcaneta');
-  await page.getByRole('button', { name: 'Entrar' }).click();})
+  await page.getByRole('button', { name: 'Entrar' }).click();
+  await expect(page).toHaveURL('http://localhost:3000/home');})

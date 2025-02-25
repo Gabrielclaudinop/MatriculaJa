@@ -176,6 +176,8 @@
     const response = await fetch("http://localhost:3000/user/image", options);
     const userData = await response.json();
 
+    localStorage.setItem("user", JSON.stringify(userData));
+
     console.log(userData);
     alert("Imagem enviada com sucesso!");
   } catch (error) {

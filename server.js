@@ -15,7 +15,7 @@ import uploadConfig from "./src/middleware/multer.js";
 
 /* CONST, definição de variáveis constantes */
 const app = express();
-const PORT = 3000
+const PORT = process.env.PORT || 3000;
 const prisma = new PrismaClient();
 
 app.use(express.static("public"))
